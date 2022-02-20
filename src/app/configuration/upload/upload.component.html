@@ -1,0 +1,16 @@
+  <div class="p-8 flex flex-col flex-wrap justify-between h-full">
+    <div>
+      <div>Upload your excel file.</div>
+      <div>It should look like <b>this</b>.</div>
+    </div>
+    <div class="py-4 w-full">
+      <img src="/assets/images/example.png" class="w-full max-w-screen-md">
+    </div>
+    <div class="flex flex-row justify-between">
+      <button mat-raised-button (click)="uploader.click()" color="primary">
+        <input hidden type="file" #uploader appReadexcel #readexcel="readexcel" (eventEmitter)="onUpload($event)" />
+        UPLOAD
+      </button>
+      <button mat-raised-button color=accent [disabled]="!this.dataObj?.data" (click)="indexTo.emit(1)">NEXT</button>
+    </div>
+  </div>

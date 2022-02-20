@@ -1,0 +1,112 @@
+th.mat-header-cell {
+  text-align: center;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 90%;
+}
+
+.ng-select{
+  width:91%;
+}
+
+:host ::ng-deep .no-wrapper .mat-form-field-wrapper{
+  margin: 0 !important;
+  padding: 0;
+ }
+ 
+@media screen and (max-width: 767px) {
+  .mat-elevation-z8 {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  tbody {
+    display: block;
+    width: 100%;
+  }
+  
+  .mat-table {
+    background: transparent;
+    * {
+      box-sizing: border-box;
+    }
+
+    .mat-row {
+      display: block;
+      overflow: hidden;
+      height: auto;
+      position: relative;
+      clear: both;
+      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+      background-color: #fff;
+      border-radius: 3px;
+      + .mat-row {
+        margin-top: 24px;
+      }
+    }
+
+    .mat-cell {
+      display: block;
+      width: 100%;
+      padding: 0 16px;
+      margin: 16px 0;
+      border: 0 none;
+      &:first-child {
+        padding: 0 16px;
+        a {
+          font-size: 20px;
+          // font-weight: 400;
+          color: inherit;
+        }
+        &:before {
+          display: none;
+        }
+      }
+    }
+
+  }
+
+}
+.mat-column-Type {
+  flex: none !important;
+  min-width: 100px !important;
+  max-width: 100px !important;
+  @media screen and (max-width: 767px) {
+    max-width: 100% !important;
+    width: 100% !important;
+    flex: auto !important;
+  }
+}
+.mat-column-Op {
+  flex: none !important;
+  min-width: 75px !important;
+  max-width: 75px !important;
+  @media screen and (max-width: 767px) {
+    max-width: 100% !important;
+    width: 100% !important;
+    flex: auto !important;
+  }
+}
+.mat-column-Value {
+  flex: none !important;
+  min-width: 200px !important;
+  @media screen and (max-width: 767px) {
+    max-width: 100% !important;
+    width: 100% !important;
+    flex: auto !important;
+  }
+}
+.mat-column-Column {
+  flex: none !important;
+  min-width: 200px !important;
+  @media screen and (max-width: 767px) {
+    width: 100% !important;
+    flex: auto !important;
+  }
+}

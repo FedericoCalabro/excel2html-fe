@@ -1,0 +1,39 @@
+<div id="get_started" class="min-h-screen flex flex-col py-8">
+  <div class="font-bold p-8 text-center">
+    <span class="text-black text-2xl">GET STARTED</span>
+  </div>
+  <mat-tab-group mat-stretch-tabs class="w-11/12 lg:w-10/12 mx-auto my-auto shadow-xl min-h-[75vh]" [(selectedIndex)]="index">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="flex flex-row justify-center text-center items-center">
+          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Upload
+        </span>
+      </ng-template>
+      <app-upload #upload [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-upload>
+    </mat-tab>
+    <mat-tab [disabled]="!this.dataObj?.data">
+      <ng-template mat-tab-label>
+        <span class="flex flex-row justify-center text-center items-center">
+          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Columns
+        </span>
+      </ng-template>
+      <app-columns #columns [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-columns>
+    </mat-tab>
+    <mat-tab [disabled]="!this.dataObj?.data">
+      <ng-template mat-tab-label>
+        <span class="flex flex-row justify-center text-center items-center">
+          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Rows
+        </span>
+      </ng-template>
+      <app-rows [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-rows>
+    </mat-tab>
+    <mat-tab [disabled]="!this.dataObj?.data">
+      <ng-template mat-tab-label>
+        <span class="flex flex-row justify-center text-center items-center">
+          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Graphics
+        </span>
+      </ng-template>
+      <app-graphics [(dataObj)]="dataObj" [(config)]="config"></app-graphics>
+    </mat-tab>
+  </mat-tab-group>
+</div>

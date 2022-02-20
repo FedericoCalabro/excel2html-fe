@@ -1,0 +1,97 @@
+<div class="p-8 flex flex-col flex-wrap h-full justify-between">
+
+    <div>
+
+        <div>
+            <div>Choose the columns you want to have in the final html view.</div>
+
+            <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [selectableGroup]="true"
+                [virtualScroll]="true" [addTag]="true" appearance="outline" [addTagText]="'Or, Add new column'"
+                appendTo="body" class="relative" dropdownPosition="bottom" [closeOnSelect]="false"
+                [(ngModel)]="this.config!.columns">
+                <ng-template ng-header-tmp>
+                    <div class="py-2">
+                        <button (click)="selectAll('columns')" mat-raised-button class="!mr-2">Select all</button>
+                        <button (click)="unselectAll('columns')" mat-raised-button>Unselect all</button>
+                    </div>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item}}
+                </ng-template>
+                <ng-template ng-footer-tmp>
+                    Selected count: {{this.config!.columns?.length}}
+                </ng-template>
+            </ng-select>
+
+        </div>
+
+        <mat-slide-toggle labelPosition="before" color="primary" class="my-8" [(ngModel)]="this.config.addRowCounter">
+            Would you like to have an extra ID column to count rows?</mat-slide-toggle>
+
+        <div>
+            <div>Is any of these columns a link?</div>
+
+            <ng-select [items]="this.config?.columns!" appendTo="body" class="relative" dropdownPosition="top"
+                [multiple]="true" [clearable]="true" [selectableGroup]="true" [virtualScroll]="true"
+                appearance="outline" [closeOnSelect]="false" [(ngModel)]="this.config!.linkColumns"
+                (ngModelChange)="updateLinksCols()">
+                <ng-template ng-header-tmp>
+                    <div class="py-2">
+                        <button (click)="selectAll('linkColumns')" mat-raised-button class="!mr-2">Select all</button>
+                        <button (click)="unselectAll('linkColumns')" mat-raised-button>Unselect all</button>
+                    </div>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item}}
+                </ng-template>
+                <ng-template ng-footer-tmp>
+                    Selected count: {{this.config!.linkColumns?.length}}
+                </ng-template>
+            </ng-select>
+
+        </div>
+
+        <div *ngIf="this.config.linkColumns!.length > 0">
+            <div class="mb-2">Please provide a link name to each link column.</div>
+
+            <div class="max-h-72 overflow-y-auto p-[1px]">
+                <table mat-table [dataSource]="this.config!.linkColumns!"
+                    class="mat-elevation-z4 w-full px-2 text-center">
+
+                    <ng-container matColumnDef="Column Link Name">
+                        <th mat-header-cell *matHeaderCellDef>Column Link Name</th>
+                        <td mat-cell *matCellDef="let link index as i">
+                            <div class="flex flex-row items-center">
+                                <span class="visible md:hidden">Column Name: </span>
+                                <mat-form-field appearance="outline" class="md:py-3 no-wrapper">
+                                    <input matInput readonly [(ngModel)]="this.config.linkNames![i]">
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Link Output Name">
+                        <th mat-header-cell *matHeaderCellDef>Link Output Name</th>
+                        <td mat-cell *matCellDef="let link; index as i">
+                            <div class="flex flex-row items-center">
+                                <span class="visible md:hidden">Output Name: </span>
+                                <mat-form-field appearance="outline" class="md:py-3 no-wrapper">
+                                    <input matInput [(ngModel)]="this.config.linkNames![i]">
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="['Column Link Name','Link Output Name']; sticky : true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['Column Link Name','Link Output Name'];"></tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="flex flex-row justify-end mt-4">
+        <button mat-raised-button color=accent [disabled]="!this.dataObj?.data" (click)="indexTo.emit(2)">NEXT</button>
+    </div>
+
+</div>
