@@ -7,7 +7,7 @@
 
             <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [selectableGroup]="true"
                 [virtualScroll]="true" [addTag]="true" appearance="outline" [addTagText]="'Or, Add new column'"
-                appendTo="body" class="relative" dropdownPosition="bottom" [closeOnSelect]="false"
+                appendTo="body" class="relative" dropdownPosition="auto" [closeOnSelect]="false"
                 [(ngModel)]="this.config!.columns">
                 <ng-template ng-header-tmp>
                     <div class="py-2">

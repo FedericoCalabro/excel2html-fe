@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from 'src/app/commons/api.service';
 import { DataObj, Config, Generation, GenerationEntity } from 'src/app/commons/models';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-graphics',

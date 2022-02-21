@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeroBannerComponent } from './hero-banner/hero-banner.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MaterialModule } from './commons/material.module';
@@ -16,6 +16,8 @@ import { ColumnsComponent } from './configuration/columns/columns.component';
 import { RowsComponent } from './configuration/rows/rows.component';
 import { GraphicsComponent } from './configuration/graphics/graphics.component';
 import { GenerationComponent } from './generation/generation.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { ErrorInterceptor } from './commons/error-interceptor';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { GenerationComponent } from './generation/generation.component';
     MaterialModule,
   ],
   providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000, horizontalPosition: 'right', verticalPosition: 'top'}},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
