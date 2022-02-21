@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from 'src/app/commons/api.service';
 import { DataObj, Config, Generation, GenerationEntity } from 'src/app/commons/models';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-graphics',
@@ -22,24 +23,15 @@ export class GraphicsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // preview() {
-  //   let generation: Generation = new Generation({ data: this.dataObj!.data, config: this.config });
-  //   this.api.generate(generation).subscribe((res: FileResponse) => {
-  //     this.htmlObj = new HtmlObj({res: res})
-  //     ApiService.generatePreview(res).then(html => {
-  //       this.htmlObj!.preview = html;
-  //       sessionStorage.setItem('temp_preview', JSON.stringify(html))
-  //       this.htmlObjChange.emit(this.htmlObj);
-  //       window.open("/generation?id=temp_preview", "_blank")
-  //     });
-  //   })
-  // }
-
   preview(){
     let generation: Generation = new Generation({ data: this.dataObj!.data, config: this.config });
     this.api.generate(generation).subscribe((entity : GenerationEntity) => {
         window.open(`/generation?id=${entity.id}`, '_blank')
     })
+  }
+
+  drop(event: any) {
+    moveItemInArray(this.config.columns!, event.previousIndex, event.currentIndex);
   }
 
 }

@@ -22,6 +22,7 @@ export class Config {
     linkNames? : string[] = [];
     columns? : any[] = [];
     rowCriteria? : RowCriteria[] = [];
+    themeColor? : string = "#32a852";
 
     constructor(partial : Partial<Config>){
         Object.assign(this, partial);

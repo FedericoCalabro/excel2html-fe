@@ -1,5 +1,31 @@
 <div class="p-8 flex flex-col flex-wrap justify-between">
     <div>
+        <div>What type of view would you like?</div>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>View</mat-label>
+            <mat-select [(ngModel)]="config.view">
+                <mat-option value="TABLE">Table</mat-option>
+                <mat-option value="CARD">Card</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <div>Choose order columns<span *ngIf="config.view==='CARD'"> (your first column will be the card title)</span></div>
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let col of config.columns" cdkDrag>{{col}}</div>
+        </div>
+    </div>
+
+    <div>
+        <span *ngIf="config.view==='TABLE'">Choose your header row color</span>
+        <span *ngIf="config.view==='CARD'">Choose your header card color</span>
+
+        <input [(colorPicker)]="config.themeColor!" (colorPickerChange)="config.themeColor=$event" cpPosition="auto" class="cp" [style.background]="config.themeColor"/>
+    </div>
+
+    <div class="flex flex-row justify-end mt-2">
         <button mat-raised-button color="accent" (click)="preview()">PREVIEW</button>
     </div>
+
 </div>
