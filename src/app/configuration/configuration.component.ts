@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../commons/api.service';
-import { DataObj, Config, HtmlObj, Generation, FileResponse, GenerationEntity } from '../commons/models';
+import { DataObj, Config, HtmlObj, Generation, GenerationEntity } from '../commons/models';
 import { ColumnsComponent } from './columns/columns.component';
-import { UploadComponent } from './upload/upload.component';
 
 @Component({
   selector: 'app-configuration',
@@ -16,7 +15,13 @@ export class ConfigurationComponent implements OnInit {
   htmlObj? : HtmlObj;
   index : number = 0;
 
-  constructor() { }
+  constructor(
+    private api : ApiService
+  ) { }
 
   ngOnInit(): void {}
+
+  tabChange(event : any){
+  }
+
 }

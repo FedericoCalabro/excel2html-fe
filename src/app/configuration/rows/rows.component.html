@@ -23,8 +23,7 @@
                                 <span class="visible md:hidden basis-1/5 relative bottom-1">Col Name: </span>
                                 <ng-select [items]="this.config.columns!" appearance="outline" [clearable]="false"
                                     class="w-full" appendTo="body" class="relative" dropdownPosition="auto"
-                                    [virtualScroll]="true" [addTag]="true" [addTagText]="'Or, Add new column'"
-                                    [(ngModel)]="this.config.rowCriteria![i].columnName">
+                                    [virtualScroll]="true" [(ngModel)]="this.config.rowCriteria![i].columnName">
                                 </ng-select>
                             </div>
                         </td>

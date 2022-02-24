@@ -27,6 +27,9 @@ export class UploadComponent implements OnInit {
     let c1 = ExcelManager.checkRowsLength(data);
     if (!c1) return console.log("error")
 
+    let c2 = ExcelManager.checkSameColName(data);
+    if(!c2) return console.log("error");
+
     let columns : string[] = [...ExcelManager.getColumns(data)];
 
     this.dataObj = new DataObj({ data, columns })

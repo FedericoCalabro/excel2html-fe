@@ -23,10 +23,20 @@ export class Config {
     columns? : any[] = [];
     rowCriteria? : RowCriteria[] = [];
     themeColor? : string = "#32a852";
+    mergedColumns? : MergedColumns[]
 
     constructor(partial : Partial<Config>){
         Object.assign(this, partial);
     }
+}
+
+export class MergedColumns{
+    name? : string;
+    mergedFrom : string[] = [];
+
+    constructor(partial : Partial<MergedColumns>){
+        Object.assign(this, partial);
+    }  
 }
 
 export class RowCriteria {
