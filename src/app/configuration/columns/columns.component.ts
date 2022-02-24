@@ -23,9 +23,9 @@ export class ColumnsComponent implements OnInit {
 
   selectAll(target : string) {
     if(target === 'columns')
-      this.config!.columns = this.dataObj?.columns.map(x => x);
+      this.config.columns = this.dataObj?.columns.map(x => x)!;
     else if(target === 'linkColumns'){
-      this.config.linkColumns = this.dataObj?.columns.map(x => x)
+      this.config.linkColumns = this.dataObj?.columns.map(x => x)!
       this.updateLinksCols();
     }
     this.configChange.emit(this.config);
@@ -68,7 +68,7 @@ export class ColumnsComponent implements OnInit {
         return console.log(merged.name + " should have at least 2 cols merging from!")
     }
 
-    let copy = [...this.dataObj?.columns!, ...this.mergedColumns.map((merged) => merged.name)];
+    let copy = [...this.config?.columns!, ...this.mergedColumns.map((merged) => merged.name)];
     if(new Set(copy).size !== copy.length)
       return console.log("cannot have same cols name!")
 

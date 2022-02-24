@@ -1,36 +1,44 @@
 <div id="get_started" class="min-h-screen flex flex-col py-8">
   <div class="font-bold p-8 text-center">
-    <span class="text-black text-2xl">GET STARTED</span>
+    <span class="text-black text-3xl">GET STARTED</span>
   </div>
-  <mat-tab-group mat-stretch-tabs class="w-11/12 lg:w-10/12 mx-auto my-auto shadow-xl min-h-[75vh]" [(selectedIndex)]="index" (selectedTabChange)="tabChange($event)">
+  <mat-tab-group mat-stretch-tabs class="w-11/12 lg:w-10/12 mx-auto my-auto shadow-xl min-h-[80vh]" [(selectedIndex)]="index" (selectedTabChange)="tabChange($event)">
     <mat-tab>
       <ng-template mat-tab-label>
-        <span class="flex flex-row justify-center text-center items-center">
-          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Upload
+        <span class="flex flex-row justify-center text-center items-center text-lg" [ngClass]="index===0?'text-[#673AB7]':''">
+          <mat-icon class="mx-2 inline scale-[1.1]" >upload</mat-icon>UPLOAD
         </span>
       </ng-template>
       <app-upload #upload [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-upload>
     </mat-tab>
     <mat-tab [disabled]="!this.dataObj?.data">
       <ng-template mat-tab-label>
-        <span class="flex flex-row justify-center text-center items-center">
-          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Columns
+        <span class="flex flex-row justify-center text-center items-center text-lg" [ngClass]="index===1?'text-[#673AB7]':''">
+          <mat-icon class="mx-2 inline scale-[1.1]">hexagon</mat-icon>GENERAL
+        </span>
+      </ng-template>
+      <app-general #general [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-general>
+    </mat-tab>
+    <mat-tab [disabled]="!this.dataObj?.data">
+      <ng-template mat-tab-label>
+        <span class="flex flex-row justify-center text-center items-center text-lg" [ngClass]="index===2?'text-[#673AB7]':''">
+          <mat-icon class="mx-2 inline scale-[1.1] rotate-90">format_align_justify</mat-icon>COLUMNS
         </span>
       </ng-template>
       <app-columns #columns [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-columns>
     </mat-tab>
     <mat-tab [disabled]="!this.dataObj?.data">
       <ng-template mat-tab-label>
-        <span class="flex flex-row justify-center text-center items-center">
-          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Rows
+        <span class="flex flex-row justify-center text-center items-center text-lg" [ngClass]="index===3?'text-[#673AB7]':''">
+          <mat-icon class="mx-2 inline scale-[1.1]">format_align_justify</mat-icon>ROWS
         </span>
       </ng-template>
       <app-rows #rows [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-rows>
     </mat-tab>
     <mat-tab [disabled]="!this.dataObj?.data">
       <ng-template mat-tab-label>
-        <span class="flex flex-row justify-center text-center items-center">
-          <mat-icon class="mx-2 inline">thumb_up</mat-icon>Graphics
+        <span class="flex flex-row justify-center text-center items-center text-lg" [ngClass]="index===4?'text-[#673AB7]':''">
+          <mat-icon class="mx-2 inline scale-[1.1]">format_color_fill</mat-icon>GRAPHICS
         </span>
       </ng-template>
       <app-graphics #graphics [(dataObj)]="dataObj" [(config)]="config"></app-graphics>

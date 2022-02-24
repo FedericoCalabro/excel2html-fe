@@ -1,18 +1,23 @@
 <div class="p-8 flex flex-col flex-wrap justify-between h-full w-full">
 
-    <div>
-        <div class="flex flex-col md:flex-row justify-between">
-            <div>
-                Here you can filter out some rows of your data.
+    <div class="flex flex-col flex-wrap gap-y-8">
+
+        <div class="flex flex-col flex-wrap gap-y-2">
+            <h1 class="font-bold text-lg">FILTERS</h1>
+            <div class="flex flex-col md:flex-row justify-between">
+                <div>
+                    Here you can filter out some rows of your data.
+                    <mat-icon #tooltip="matTooltip" (click)="tooltip.toggle()" color="primary"
+                    matTooltip="Decide your own criterias to filter your excel file. Only rows that matches all criterias will be displayed, please pay attention to insert the correct type. Regex are JAVA ones">
+                    help</mat-icon>
+                </div>
+                <button mat-raised-button color="primary" (click)="addCriteria()">ADD FILTER</button>
             </div>
-            <button mat-raised-button color="primary" (click)="addCriteria()">ADD FILTER</button>
         </div>
 
-
         <div *ngIf="this.config.rowCriteria!.length > 0">
-            <div class="mb-2">Please add your filters to the rows.</div>
 
-            <div class="max-h-[500px] overflow-y-auto p-[1px]">
+            <div class="max-h-[480px] overflow-y-auto p-[1px]">
                 <table mat-table [dataSource]="this.config.rowCriteria!"
                     class="mat-elevation-z4 h-full w-full px-2 text-center">
 
@@ -84,7 +89,7 @@
                                 </button>
                             </div>
                             <div class="flex md:hidden flex-row justify-center">
-                                <button mat-raised-button color="accent" (click)="removeCriteria(i)">
+                                <button mat-raised-button color="accent" (click)="removeCriteria(i)" class="w-full">
                                     <mat-icon color="warn">delete</mat-icon>
                                 </button>
                             </div>
@@ -98,7 +103,7 @@
         </div>
     </div>
     <div class="flex flex-row justify-end pt-4">
-        <button mat-raised-button color="accent" (click)="indexTo.emit(3)">NEXT</button>
+        <button mat-raised-button color="accent" (click)="indexTo.emit(4)">NEXT</button>
     </div>
 
 </div>

@@ -18,6 +18,7 @@ import { GraphicsComponent } from './configuration/graphics/graphics.component';
 import { GenerationComponent } from './generation/generation.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from './commons/error-interceptor';
+import { GeneralComponent } from './configuration/general/general.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ErrorInterceptor } from './commons/error-interceptor';
     RowsComponent,
     GraphicsComponent,
     GenerationComponent,
+    GeneralComponent,
   ],
   imports: [
     BrowserModule,

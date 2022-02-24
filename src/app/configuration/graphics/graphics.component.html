@@ -1,31 +1,32 @@
-<div class="p-8 flex flex-col flex-wrap justify-between">
-    <div>
-        <div>What type of view would you like?</div>
-        <mat-form-field appearance="outline" class="w-full">
-            <mat-label>View</mat-label>
-            <mat-select [(ngModel)]="config.view">
-                <mat-option value="TABLE">Table</mat-option>
-                <mat-option value="CARD">Card</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+<div class="p-8 flex flex-col flex-wrap justify-between h-full w-full">
 
-    <div>
-        <div>Choose order columns<span *ngIf="config.view==='CARD'"> (your first column will be the card title)</span></div>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let col of config.columns" cdkDrag>{{col}}</div>
+    <div class="flex flex-col flex-wrap gap-y-8">
+        <div class="flex flex-col flex-wrap gap-y-2">
+            <h1 class="font-bold text-lg">ORDERS, BACKGROUND AND TEXT COLOR</h1>
+            <div>Choose order columns, background color and text color for each data cell
+                <mat-icon #tooltip="matTooltip" (click)="tooltip.toggle()" color="primary"
+                    matTooltip="Please note that in case of a CARD, your first column will be the Title Header of the card">
+                    help</mat-icon>
+            </div>
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box  items-center gap-1 md:gap-0" *ngFor="let col of config.columns; index as i"
+                    cdkDrag>
+                    <div class="basis-full md:basis-1/3">{{col}}</div>
+                    <div class="basis-full md:basis-1/3">BG Color:
+                        <input [(colorPicker)]="config.themeColor[i]" (colorPickerChange)="config.themeColor[i]=$event"
+                            cpPosition="auto" class="cp" [style.background]="config.themeColor[i]" />
+                    </div>
+                    <div class="basis-full md:basis-auto">Text Color:
+                        <input [(colorPicker)]="config.textColor[i]" (colorPickerChange)="config.textColor[i]=$event"
+                            cpPosition="auto" class="cp" [style.background]="config.textColor[i] || '#000000'" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div>
-        <span *ngIf="config.view==='TABLE'">Choose your header row color</span>
-        <span *ngIf="config.view==='CARD'">Choose your header card color</span>
-
-        <input [(colorPicker)]="config.themeColor!" (colorPickerChange)="config.themeColor=$event" cpPosition="auto" class="cp" [style.background]="config.themeColor"/>
-    </div>
-
     <div class="flex flex-row justify-end mt-2">
-        <button mat-raised-button color="accent" (click)="preview()">PREVIEW</button>
+        <button mat-raised-button color="accent" (click)="preview()">GENERATE PREVIEW</button>
     </div>
 
 </div>

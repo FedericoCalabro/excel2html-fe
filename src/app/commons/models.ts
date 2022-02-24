@@ -15,15 +15,16 @@ export class GenerationEntity {
 
 export class Config {
 
-    view? : "TABLE" | "CARD" = "TABLE";
-    name? : string = "DATA-VIEW";
-    addRowCounter? : boolean = false;
-    linkColumns? : string[] = [];
-    linkNames? : string[] = [];
-    columns? : any[] = [];
-    rowCriteria? : RowCriteria[] = [];
-    themeColor? : string = "#32a852";
-    mergedColumns? : MergedColumns[]
+    view : "TABLE" | "CARD" = "TABLE";
+    name : string = "DATA-VIEW";
+    addRowCounter : boolean = false;
+    linkColumns : string[] = [];
+    linkNames : string[] = [];
+    columns : any[] = [];
+    rowCriteria : RowCriteria[] = [];
+    themeColor : string[] = [];
+    mergedColumns? : MergedColumns[];
+    textColor : string[] = [];
 
     constructor(partial : Partial<Config>){
         Object.assign(this, partial);

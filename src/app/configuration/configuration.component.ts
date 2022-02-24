@@ -16,7 +16,6 @@ export class ConfigurationComponent implements OnInit {
   index : number = 0;
 
   constructor(
-    private api : ApiService
   ) { }
 
   ngOnInit(): void {}

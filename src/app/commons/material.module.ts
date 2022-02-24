@@ -14,6 +14,7 @@ import {DragDropModule } from '@angular/cdk/drag-drop'
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ColorPickerModule } from 'ngx-color-picker';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     DragDropModule,
     MatTooltipModule,
     ColorPickerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }

@@ -1,0 +1,50 @@
+<div class="p-8 flex flex-col flex-wrap h-full justify-between">
+
+
+    <div class="flex flex-col flex-wrap gap-y-8">
+        <div class="flex flex-col flex-wrap gap-y-2">
+            <h1 class="font-bold text-lg">VIEW</h1>
+            <div>What type of view would you like?</div>
+            <mat-form-field appearance="outline">
+                <mat-label>View</mat-label>
+                <mat-select [(ngModel)]="config.view">
+                    <mat-option value="TABLE">Table</mat-option>
+                    <mat-option value="CARD">Card</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="relative bottom-3">
+                <span>EXAMPLE PREVIEW FOR:&nbsp;</span>
+                <a href="#" target="_blank" class="italic text-green-600 underline">{{config.view}}</a>
+            </div>
+        </div>
+        <mat-divider class="w-full"></mat-divider>
+
+        <div class="flex flex-col flex-wrap gap-y-2">
+            <h1 class="font-bold text-lg">COUNTER</h1>
+            <div>Would you like to have an extra ID column to count rows?</div>
+            <mat-form-field appearance="outline">
+                <mat-select [(ngModel)]="config.addRowCounter">
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-divider class="w-full"></mat-divider>
+
+        <div class="flex flex-col flex-wrap gap-y-2">
+            <h1 class="font-bold text-lg">FRAMEWORK</h1>
+            <div>The view will be generated using which framework?</div>
+            <mat-form-field appearance="outline">
+                <mat-select value="bootstrap5">
+                    <mat-option value="bootstrap5">Bootstrap 5</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+    <div class="flex flex-row mt-4 justify-end">
+        <button mat-raised-button color=accent [disabled]="!this.dataObj?.data" (click)="indexTo.emit(2)">NEXT</button>
+    </div>
+
+</div>
