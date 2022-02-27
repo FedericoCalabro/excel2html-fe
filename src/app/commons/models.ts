@@ -15,7 +15,7 @@ export class GenerationEntity {
 
 export class Config {
 
-    view : "TABLE" | "CARD" = "TABLE";
+    view : "TABLE" | "CARD" | "PIVOT" = "PIVOT";
     name : string = "DATA-VIEW";
     addRowCounter : boolean = false;
     linkColumns : string[] = [];
@@ -25,8 +25,32 @@ export class Config {
     themeColor : string[] = [];
     mergedColumns? : MergedColumns[];
     textColor : string[] = [];
+    aggregationRows? : AggregationRow[] = [];
+    enableSorting? : boolean = false; 
+    sortByColumns? : SortingColumn[] = [];
 
     constructor(partial : Partial<Config>){
+        Object.assign(this, partial);
+    }
+}
+
+export class SortingColumn{
+    type? : "Number" | "String";
+    name? : string;
+    order? : number = 1;
+
+    constructor(partial : Partial<SortingColumn>){
+        Object.assign(this, partial);
+    }
+}
+
+
+export class AggregationRow{
+    blockedCol? : string;
+    targetCol? : string;
+    op? : 'Sum' | 'Min' | 'Max' | 'Std Variance' | 'Std Deviation' | 'Product';
+
+    constructor(partial : Partial<AggregationRow>){
         Object.assign(this, partial);
     }
 }

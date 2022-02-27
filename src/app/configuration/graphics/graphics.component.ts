@@ -3,6 +3,8 @@ import { ApiService } from 'src/app/commons/api.service';
 import { DataObj, Config, Generation, GenerationEntity } from 'src/app/commons/models';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { PreviewSuccessDialogComponent } from '../preview-success-dialog/preview-success-dialog.component';
 
 @Component({
   selector: 'app-graphics',
@@ -18,7 +20,8 @@ export class GraphicsComponent implements OnInit {
   @Output() configChange = new EventEmitter<Config>();
 
   constructor(
-    private api : ApiService
+    private api : ApiService,
+    private dialog : MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +30,10 @@ export class GraphicsComponent implements OnInit {
   preview(){
     let generation: Generation = new Generation({ data: this.dataObj!.data, config: this.config });
     this.api.generate(generation).subscribe((entity : GenerationEntity) => {
-        window.open(`/generation?id=${entity.id}`, '_blank')
+        sessionStorage.setItem('generationPreview', JSON.stringify(entity));
+        this.dialog.open(PreviewSuccessDialogComponent, {disableClose: true, data: {id: entity.id}}).afterClosed().subscribe(() => {
+          window.open(`/generation`, '_blank')
+        })
     })
   }
 

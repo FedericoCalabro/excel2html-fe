@@ -15,7 +15,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { ColorPickerModule } from 'ngx-color-picker';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDividerModule} from '@angular/material/divider';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [],
@@ -37,7 +38,9 @@ import {MatDividerModule} from '@angular/material/divider';
     MatTooltipModule,
     ColorPickerModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule,
+    ClipboardModule
   ]
 })
 export class MaterialModule { }

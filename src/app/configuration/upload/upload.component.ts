@@ -14,6 +14,7 @@ export class UploadComponent implements OnInit {
 
   @Output() dataObjChange = new EventEmitter<DataObj>();
   @Output() configChange = new EventEmitter<Config>();
+  @Output() onFileUploaded = new EventEmitter<any>();
 
   @Output() indexTo = new EventEmitter<any>();
 
@@ -33,12 +34,11 @@ export class UploadComponent implements OnInit {
     let columns : string[] = [...ExcelManager.getColumns(data)];
 
     this.dataObj = new DataObj({ data, columns })
-    if (!c1) return console.log("success")
-
-    this.config.columns = [...columns]
+    this.config.columns = [...columns];
 
     this.dataObjChange.emit(this.dataObj);
     this.configChange.emit(this.config);
+    this.onFileUploaded.emit(true);
   }
 
 }

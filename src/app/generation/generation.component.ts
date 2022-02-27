@@ -24,6 +24,12 @@ export class GenerationComponent implements OnInit {
     if(this.id){
       this.api.get(this.id).subscribe(generation => this.generation = generation)
     }
+    else{
+      let generation = JSON.parse(sessionStorage.getItem('generationPreview') || '');
+      if(generation){
+        this.generation = generation;
+      }
+    }
   }
 
   download() {this.api.download(this.id!)}

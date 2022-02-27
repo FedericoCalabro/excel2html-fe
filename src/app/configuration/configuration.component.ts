@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ApiService } from '../commons/api.service';
-import { DataObj, Config, HtmlObj, Generation, GenerationEntity } from '../commons/models';
+import { DataObj, Config, HtmlObj } from '../commons/models';
 import { ColumnsComponent } from './columns/columns.component';
 
 @Component({
@@ -15,12 +14,23 @@ export class ConfigurationComponent implements OnInit {
   htmlObj? : HtmlObj;
   index : number = 0;
 
+  @ViewChild('columns') columnsCP! : ColumnsComponent;
+  @ViewChild('rows') rowsCp! : ColumnsComponent;
+  @ViewChild('graphics') graphicsCp! : ColumnsComponent;
+
   constructor(
   ) { }
 
   ngOnInit(): void {}
 
   tabChange(event : any){
+  }
+
+  reset(){
+    this.columnsCP.mergedColumns = [];
+    this.config = new Config({
+      columns: this.dataObj?.columns
+    });
   }
 
 }

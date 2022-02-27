@@ -6,7 +6,7 @@
             <div>Choose the columns you want to have in the final view</div>
             <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [virtualScroll]="true"
                 appearance="outline" appendTo="body" class="relative" dropdownPosition="auto" [closeOnSelect]="false"
-                [(ngModel)]="this.config!.columns">
+                [(ngModel)]="this.config!.columns" [readonly]="this.config.view === 'PIVOT'">
                 <ng-template ng-header-tmp>
                     <div class="py-2">
                         <button (click)="selectAll('columns')" mat-stroked-button class="!mr-2">SELECT ALL</button>
@@ -25,7 +25,7 @@
             <div class="flex flex-col md:flex-row justify-between mb-1">
                 <div>
                     Do you want to create new columns by merging others?
-                    <mat-icon #tooltip="matTooltip" (click)="tooltip.toggle()" color="primary"
+                    <mat-icon color="primary"
                         matTooltip="Create a new column by mergind two or more columns from the excel. The only requirements will be to select at least 2 columns and to choose a name not already present">
                         help</mat-icon>
                 </div>
@@ -92,7 +92,7 @@
             <div class="flex flex-col md:flex-row justify-between" *ngIf="this.mergedColumns.length > 0">
                 <div>
                     Sync your newly columns with 'normal ones'
-                    <mat-icon #tooltip="matTooltip" (click)="tooltip.toggle()" color="primary"
+                    <mat-icon color="primary"
                         matTooltip="Please sync merged columns changes or these columns will be ignored! Please note this will reset order and some other stuff, it should be done as your first step!">
                         help</mat-icon>
                 </div>
@@ -100,10 +100,10 @@
             </div>
 
         </div>
-        <mat-divider class="w-full"></mat-divider>
+        <mat-divider class="w-full" *ngIf="this.config.view !== 'PIVOT'"></mat-divider>
 
 
-        <div class="flex flex-col flex-wrap gap-y-2">
+        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view !== 'PIVOT'">
             <h1 class="font-bold text-lg">LINK COLUMNS MANAGEMENT</h1>
             <div>Is any of these columns a link?</div>
             <ng-select [items]="this.config?.columns!" appendTo="body" class="relative" dropdownPosition="top"
@@ -122,10 +122,10 @@
             </ng-select>
         </div>
 
-        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.linkColumns!.length > 0">
+        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.linkColumns!.length > 0 && this.config.view !== 'PIVOT'">
             <div>
                 Please provide a link name to each link column.
-                <mat-icon #tooltip="matTooltip" (click)="tooltip.toggle()" color="primary"
+                <mat-icon color="primary"
                 matTooltip="The link output name is what you will see insted of the value of the link, you can put whatever you want!">
                 help</mat-icon>
             </div>

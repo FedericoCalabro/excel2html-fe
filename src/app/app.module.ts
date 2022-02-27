@@ -19,6 +19,7 @@ import { GenerationComponent } from './generation/generation.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from './commons/error-interceptor';
 import { GeneralComponent } from './configuration/general/general.component';
+import { PreviewSuccessDialogComponent } from './configuration/preview-success-dialog/preview-success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { GeneralComponent } from './configuration/general/general.component';
     GraphicsComponent,
     GenerationComponent,
     GeneralComponent,
+    PreviewSuccessDialogComponent,
   ],
   imports: [
     BrowserModule,

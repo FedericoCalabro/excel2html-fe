@@ -10,6 +10,7 @@
                 <mat-select [(ngModel)]="config.view">
                     <mat-option value="TABLE">Table</mat-option>
                     <mat-option value="CARD">Card</mat-option>
+                    <mat-option value="PIVOT">Pivot</mat-option>
                 </mat-select>
             </mat-form-field>
             <div class="relative bottom-3">
@@ -17,9 +18,9 @@
                 <a href="#" target="_blank" class="italic text-green-600 underline">{{config.view}}</a>
             </div>
         </div>
-        <mat-divider class="w-full"></mat-divider>
+        <mat-divider class="w-full" *ngIf="this.config.view !== 'PIVOT'"></mat-divider>
 
-        <div class="flex flex-col flex-wrap gap-y-2">
+        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view !== 'PIVOT'">
             <h1 class="font-bold text-lg">COUNTER</h1>
             <div>Would you like to have an extra ID column to count rows?</div>
             <mat-form-field appearance="outline">
