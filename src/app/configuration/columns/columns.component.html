@@ -9,8 +9,8 @@
                 [(ngModel)]="this.config!.columns" [readonly]="this.config.view === 'PIVOT'">
                 <ng-template ng-header-tmp>
                     <div class="py-2">
-                        <button (click)="selectAll('columns')" mat-stroked-button class="!mr-2">SELECT ALL</button>
-                        <button (click)="unselectAll('columns')" mat-stroked-button>UNSELECT ALL</button>
+                        <button (click)="selectAll()" mat-stroked-button class="!mr-2">SELECT ALL</button>
+                        <button (click)="unselectAll()" mat-stroked-button>UNSELECT ALL</button>
                     </div>
                 </ng-template>
                 <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
@@ -18,15 +18,15 @@
                 </ng-template>
             </ng-select>
         </div>
-        <mat-divider class="w-full"></mat-divider>
+        <mat-divider class="w-full" *ngIf="this.config.view !== 'PIVOT'"></mat-divider>
 
-        <div class="flex flex-col flex-wrap gap-y-2">
+        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view !== 'PIVOT'">
             <h1 class="font-bold text-lg">NEW COLUMNS (MERGED)</h1>
             <div class="flex flex-col md:flex-row justify-between mb-1">
                 <div>
                     Do you want to create new columns by merging others?
                     <mat-icon color="primary"
-                        matTooltip="Create a new column by mergind two or more columns from the excel. The only requirements will be to select at least 2 columns and to choose a name not already present">
+                        [matTooltip]="TOOLTIP_DEFINITION.COLUMNS_MERGING_DESCR">
                         help</mat-icon>
                 </div>
                 <button mat-raised-button color="primary" (click)="addNewColMerged()" class="py-2">CREATE
@@ -42,7 +42,7 @@
                             <div class="pt-[10px] flex flex-row items-center">
                                 <span class="visible md:hidden basis-1/5 relative bottom-1">Merged Column Name: </span>
                                 <mat-form-field appearance="outline">
-                                    <input matInput [(ngModel)]="this.mergedColumns[i].name">
+                                    <input matInput [(ngModel)]="this.mergedColumns[i].nameDefinition">
                                 </mat-form-field>
                             </div>
                         </td>
@@ -92,78 +92,13 @@
             <div class="flex flex-col md:flex-row justify-between" *ngIf="this.mergedColumns.length > 0">
                 <div>
                     Sync your newly columns with 'normal ones'
-                    <mat-icon color="primary"
-                        matTooltip="Please sync merged columns changes or these columns will be ignored! Please note this will reset order and some other stuff, it should be done as your first step!">
-                        help</mat-icon>
+                    <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.COLUMNS_MERGING_SYNC">help</mat-icon>
                 </div>
                 <button mat-raised-button color="warn" (click)="mergedToNormals()">SYNC COLUMNS</button>
             </div>
 
+            <mat-divider class="w-full"></mat-divider>
         </div>
-        <mat-divider class="w-full" *ngIf="this.config.view !== 'PIVOT'"></mat-divider>
-
-
-        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view !== 'PIVOT'">
-            <h1 class="font-bold text-lg">LINK COLUMNS MANAGEMENT</h1>
-            <div>Is any of these columns a link?</div>
-            <ng-select [items]="this.config?.columns!" appendTo="body" class="relative" dropdownPosition="top"
-                [multiple]="true" [clearable]="true" [selectableGroup]="true" [virtualScroll]="true"
-                appearance="outline" [closeOnSelect]="false" [(ngModel)]="this.config!.linkColumns"
-                (ngModelChange)="updateLinksCols()">
-                <ng-template ng-header-tmp>
-                    <div class="py-2">
-                        <button (click)="selectAll('linkColumns')" mat-stroked-button class="!mr-2">SELECT ALL</button>
-                        <button (click)="unselectAll('linkColumns')" mat-stroked-button>UNSELECT ALL</button>
-                    </div>
-                </ng-template>
-                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item}}
-                </ng-template>
-            </ng-select>
-        </div>
-
-        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.linkColumns!.length > 0 && this.config.view !== 'PIVOT'">
-            <div>
-                Please provide a link name to each link column.
-                <mat-icon color="primary"
-                matTooltip="The link output name is what you will see insted of the value of the link, you can put whatever you want!">
-                help</mat-icon>
-            </div>
-            <div class="max-h-72 overflow-y-auto p-[1px] my-2">
-                <table mat-table [dataSource]="this.config!.linkColumns!"
-                    class="mat-elevation-z4 w-full px-2 text-center">
-
-                    <ng-container matColumnDef="Column Link Name">
-                        <th mat-header-cell *matHeaderCellDef>Column Link Name</th>
-                        <td mat-cell *matCellDef="let link index as i">
-                            <div class="flex flex-row items-center">
-                                <span class="visible md:hidden">Column Name: </span>
-                                <mat-form-field appearance="outline" class="md:py-3 no-wrapper">
-                                    <input matInput readonly [(ngModel)]="this.config.linkColumns![i]">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="Link Output Name">
-                        <th mat-header-cell *matHeaderCellDef>Link Output Name</th>
-                        <td mat-cell *matCellDef="let link; index as i">
-                            <div class="flex flex-row items-center">
-                                <span class="visible md:hidden">Output Name: </span>
-                                <mat-form-field appearance="outline" class="md:py-3 no-wrapper">
-                                    <input matInput [(ngModel)]="this.config.linkNames![i]">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="['Column Link Name','Link Output Name']; sticky : true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: ['Column Link Name','Link Output Name'];"></tr>
-                </table>
-            </div>
-        </div>
-
-    </div>
 
     <div class="flex flex-row justify-end mt-4">
         <button mat-raised-button color=accent [disabled]="!this.dataObj?.data" (click)="indexTo.emit(3)">NEXT</button>

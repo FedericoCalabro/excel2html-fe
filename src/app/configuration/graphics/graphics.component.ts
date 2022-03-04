@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from 'src/app/commons/api.service';
 import { DataObj, Config, Generation, GenerationEntity } from 'src/app/commons/models';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { PreviewSuccessDialogComponent } from '../preview-success-dialog/preview-success-dialog.component';
+import { TOOLTIP_DEFINITIONS } from 'src/app/commons/constants';
 
 @Component({
   selector: 'app-graphics',
@@ -13,6 +13,8 @@ import { PreviewSuccessDialogComponent } from '../preview-success-dialog/preview
 })
 export class GraphicsComponent implements OnInit {
 
+  TOOLTIP_DEFINITION = TOOLTIP_DEFINITIONS;
+  
   @Input() dataObj? : DataObj;
   @Input() config! : Config;
 
@@ -30,9 +32,8 @@ export class GraphicsComponent implements OnInit {
   preview(){
     let generation: Generation = new Generation({ data: this.dataObj!.data, config: this.config });
     this.api.generate(generation).subscribe((entity : GenerationEntity) => {
-        sessionStorage.setItem('generationPreview', JSON.stringify(entity));
         this.dialog.open(PreviewSuccessDialogComponent, {disableClose: true, data: {id: entity.id}}).afterClosed().subscribe(() => {
-          window.open(`/generation`, '_blank')
+          window.open(`/generation?id=${entity.id}`, '_blank')
         })
     })
   }

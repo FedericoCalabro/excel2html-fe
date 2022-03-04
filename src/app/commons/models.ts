@@ -15,17 +15,15 @@ export class GenerationEntity {
 
 export class Config {
 
-    view : "TABLE" | "CARD" | "PIVOT" = "PIVOT";
+    view : "TABLE" | "CARD" | "PIVOT" = "CARD";
     name : string = "DATA-VIEW";
     addRowCounter : boolean = false;
-    linkColumns : string[] = [];
-    linkNames : string[] = [];
     columns : any[] = [];
     rowCriteria : RowCriteria[] = [];
     themeColor : string[] = [];
     mergedColumns? : MergedColumns[];
     textColor : string[] = [];
-    aggregationRows? : AggregationRow[] = [];
+    aggregationRows : AggregationRow[] = [];
     enableSorting? : boolean = false; 
     sortByColumns? : SortingColumn[] = [];
 
@@ -48,7 +46,7 @@ export class SortingColumn{
 export class AggregationRow{
     blockedCol? : string;
     targetCol? : string;
-    op? : 'Sum' | 'Min' | 'Max' | 'Std Variance' | 'Std Deviation' | 'Product';
+    op? : string[] = [];
 
     constructor(partial : Partial<AggregationRow>){
         Object.assign(this, partial);
@@ -56,7 +54,7 @@ export class AggregationRow{
 }
 
 export class MergedColumns{
-    name? : string;
+    nameDefinition? : string;
     mergedFrom : string[] = [];
 
     constructor(partial : Partial<MergedColumns>){

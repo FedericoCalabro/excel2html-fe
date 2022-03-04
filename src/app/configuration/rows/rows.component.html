@@ -9,7 +9,7 @@
                 <div>
                     Here you can filter out some rows of your data
                     <mat-icon color="primary"
-                        matTooltip="Decide your own criterias to filter your excel file. Only rows that matches all criterias will be displayed, please pay attention to insert the correct type. Regex are JAVA ones. If cannot cast to Number, that row will be ignored">
+                        [matTooltip]="TOOLTIP_DEFINITION.ROWS_FILTER_DESCR">
                         help</mat-icon>
                 </div>
                 <button mat-raised-button color="primary" (click)="addCriteria()">ADD FILTER</button>
@@ -111,14 +111,14 @@
                 <div>
                     Here you can add rows based on aggregation functions (only numbers)
                     <mat-icon color="primary"
-                        matTooltip="Currently you are allowed to block a max of 1 col per row built with this aggregation framework builder, and the column must be of type Number. Note in order to see something in the final table, you have to at least build one aggregation row.">
+                        [matTooltip]="TOOLTIP_DEFINITION.ROWS_AGGREGATION_DESCR">
                         help</mat-icon>
                 </div>
                 <button mat-raised-button color="primary" (click)="addRowAggr()">ADD AGGREGATION ROW</button>
             </div>
         </div>
 
-        <div *ngIf="this.config.aggregationRows!.length > 0">
+        <div *ngIf="this.config.aggregationRows!.length > 0 && this.config.view === 'PIVOT'">
 
             <div class="max-h-[350px] overflow-y-auto p-[1px]">
                 <table mat-table [dataSource]="this.config.aggregationRows!"
@@ -159,17 +159,21 @@
                         <td mat-cell *matCellDef="let col; index as i">
                             <div class="flex flex-row items-center">
                                 <span class="visible md:hidden basis-1/5">Aggregation Op: </span>
-                                <mat-form-field appearance="outline" class="pt-4">
-                                    <mat-select [(ngModel)]="this.config.aggregationRows![i].op">
-                                        <mat-option value="Sum">Sum</mat-option>
-                                        <mat-option value="Min">Min</mat-option>
-                                        <mat-option value="Max">Max</mat-option>
-                                        <mat-option value="Mean">Mean</mat-option>
-                                        <mat-option value="Product">Product</mat-option>
-                                        <mat-option value="Std Deviation">Std Deviation</mat-option>
-                                        <mat-option value="Std Variance">Std Variance</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
+                                <div class="mt-4 !w-full">
+                                    <ng-select [items]="aggregationItems" [multiple]="true" [clearable]="true" [virtualScroll]="true"
+                                    appearance="outline" appendTo="body" class="relative" dropdownPosition="auto" [closeOnSelect]="false"
+                                    [(ngModel)]="this.config.aggregationRows[i].op" class="!w-full">
+                                    <ng-template ng-header-tmp>
+                                        <div class="py-2">
+                                            <button (click)="selectAllAggr(i)" mat-stroked-button class="!mr-2">SELECT ALL</button>
+                                            <button (click)="unselectAllAggr(i)" mat-stroked-button>UNSELECT ALL</button>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item}}
+                                    </ng-template>
+                                </ng-select>
+                                </div>
                             </div>
                         </td>
                     </ng-container>
@@ -208,7 +212,7 @@
                 <div>
                     Choose order of columns you want to sort by
                     <mat-icon color="primary"
-                        matTooltip="Note, if casting to Number fails, that row will be ignored during sorting process.">
+                        [matTooltip]="TOOLTIP_DEFINITION.ROWS_SORT_DESCR">
                         help</mat-icon>
                 </div>
                 <button mat-raised-button (click)="addSort()" color="primary">ADD SORTING LEVEL</button>
@@ -216,7 +220,7 @@
 
         </div>
         <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)"
-            *ngIf="this.config.sortByColumns!.length > 0">
+            *ngIf="this.config.sortByColumns!.length > 0 && this.config.view !== 'PIVOT'">
             <div class="example-box items-center gap-1 md:gap-0" *ngFor="let col of config.sortByColumns; index as i"
                 cdkDrag>
                 <div class="basis-full md:basis-[30%]">
@@ -263,8 +267,11 @@
         </div>
     </div>
 
-    <div class="flex flex-row justify-end pt-4">
+    <div class="flex flex-row justify-end pt-4" *ngIf="this.config.view !== 'PIVOT'">
         <button mat-raised-button color="accent" (click)="indexTo.emit(4)">NEXT</button>
+    </div>
+    <div class="flex flex-row justify-end pt-4" *ngIf="this.config.view === 'PIVOT'">
+        <button mat-raised-button color="accent" (click)="preview()">GENERATE PREVIEW</button>
     </div>
 
 </div>

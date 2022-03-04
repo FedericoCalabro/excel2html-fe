@@ -35,7 +35,7 @@
       </ng-template>
       <app-rows #rows [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-rows>
     </mat-tab>
-    <mat-tab [disabled]="!this.dataObj?.data">
+    <mat-tab [disabled]="!this.dataObj?.data" *ngIf="this.config.view !== 'PIVOT'">
       <ng-template mat-tab-label>
         <span class="flex flex-row justify-center text-center items-center text-lg" [ngClass]="index===4?'text-[#673AB7]':''">
           <mat-icon class="mx-2 inline scale-[1.1]">format_color_fill</mat-icon>GRAPHICS

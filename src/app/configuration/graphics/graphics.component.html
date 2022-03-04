@@ -5,7 +5,7 @@
             <h1 class="font-bold text-lg">ORDERS, BACKGROUND AND TEXT COLOR</h1>
             <div>Choose order columns, background color and text color for each data cell
                 <mat-icon color="primary"
-                    matTooltip="Please note that in case of a CARD, your first column will be the Title Header of the card">
+                    [matTooltip]="TOOLTIP_DEFINITION.GRAPHICS_DESCR">
                     help</mat-icon>
             </div>
             <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">

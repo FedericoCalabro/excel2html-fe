@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ExcelManager } from 'src/app/commons/excelManager';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TOOLTIP_DEFINITIONS } from 'src/app/commons/constants';
 import { Config, DataObj, MergedColumns } from 'src/app/commons/models';
 
 @Component({
@@ -9,6 +10,8 @@ import { Config, DataObj, MergedColumns } from 'src/app/commons/models';
 })
 export class ColumnsComponent implements OnInit {
 
+  TOOLTIP_DEFINITION = TOOLTIP_DEFINITIONS;
+
   @Input() dataObj? : DataObj;
   @Input() config! : Config;
 
@@ -16,33 +19,20 @@ export class ColumnsComponent implements OnInit {
   @Output() configChange = new EventEmitter<Config>();
   @Output() indexTo = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(
+    private snackbar : MatSnackBar
+  ) { }
 
   ngOnInit(): void {
   }
 
-  selectAll(target : string) {
-    if(target === 'columns')
-      this.config.columns = this.dataObj?.columns.map(x => x)!;
-    else if(target === 'linkColumns'){
-      this.config.linkColumns = this.dataObj?.columns.map(x => x)!
-      this.updateLinksCols();
-    }
+  selectAll() {
+    this.config.columns = this.dataObj?.columns.map(x => x)!;
     this.configChange.emit(this.config);
   }
 
-  unselectAll(target : string) {
-    if(target === 'columns')
-      this.config!.columns = [];
-    else if(target === 'linkColumns'){
-      this.config.linkColumns = []
-      this.updateLinksCols();
-    }
-    this.configChange.emit(this.config);
-  }
-
-  updateLinksCols(){
-    this.config.linkNames = [...this.config.linkColumns!];
+  unselectAll() {
+    this.config!.columns = [];
     this.configChange.emit(this.config);
   }
 
@@ -50,11 +40,13 @@ export class ColumnsComponent implements OnInit {
   mergedColumns : MergedColumns[] = [];
   index = 0;
   addNewColMerged(){
+    let nd = this.config.view === "CARD" ? `Merged-${this.index}:{{1}} - {{2}}` : `Merged-${this.index++}`
     let obj : any = {
-      name : `Merged-${this.index++}`,
+      nameDefinition : nd,
       mergedFrom : []
     }
     this.mergedColumns = [...this.mergedColumns, obj]
+    console.log(this.mergedColumns)
   }
   removeMerged(i : number){
     this.mergedColumns = this.mergedColumns.filter((value, index) => index != i);
@@ -65,12 +57,15 @@ export class ColumnsComponent implements OnInit {
     for (let i = 0; i < this.mergedColumns.length; i++) {
       const merged = this.mergedColumns[i];
       if(merged.mergedFrom!.length <= 1)
-        return console.log(merged.name + " should have at least 2 cols merging from!")
+        return this.snackbar.open(merged.nameDefinition + " should have at least 2 columns merging from!", "OK")
     }
 
-    let copy = [...this.config?.columns!, ...this.mergedColumns.map((merged) => merged.name)];
+    let copy = [...this.dataObj?.columns!];
+    copy = copy.filter(col => this.config.columns.includes(col))
+    copy = [...copy, ...this.mergedColumns.map(merged => merged.nameDefinition!)]
+
     if(new Set(copy).size !== copy.length)
-      return console.log("cannot have same cols name!")
+      return this.snackbar.open("cannot have columns with the same name!", "OK")
 
     this.config.columns = [...copy]
     this.config.mergedColumns = [...this.mergedColumns]

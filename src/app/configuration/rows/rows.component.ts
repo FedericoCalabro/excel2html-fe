@@ -1,7 +1,10 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DataObj, Config, RowCriteria, AggregationRow, SortingColumn } from 'src/app/commons/models';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from 'src/app/commons/api.service';
+import { DataObj, Config, RowCriteria, AggregationRow, SortingColumn, Generation, GenerationEntity } from 'src/app/commons/models';
+import { PreviewSuccessDialogComponent } from '../preview-success-dialog/preview-success-dialog.component';
+import {TOOLTIP_DEFINITIONS} from 'src/app/commons/constants'
 @Component({
   selector: 'app-rows',
   templateUrl: './rows.component.html',
@@ -9,6 +12,8 @@ import { DataObj, Config, RowCriteria, AggregationRow, SortingColumn } from 'src
 })
 export class RowsComponent implements OnInit {
 
+  TOOLTIP_DEFINITION = TOOLTIP_DEFINITIONS;
+  
   @Input() dataObj? : DataObj;
   @Input() config! : Config;
 
@@ -16,7 +21,9 @@ export class RowsComponent implements OnInit {
   @Output() configChange = new EventEmitter<Config>();
   @Output() indexTo = new EventEmitter<any>();
 
-  constructor() { }
+  aggregationItems : string[] = ["Sum","Min","Max","Mean","Product","Std Deviation","Std Variance"]
+
+  constructor(private api : ApiService, private dialog : MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -41,8 +48,17 @@ export class RowsComponent implements OnInit {
   }
   addRowAggr(){
     let c0 = this.config.columns![0] || '';
-    this.config.aggregationRows?.push(new AggregationRow({blockedCol: c0, targetCol: c0, op: 'Sum'}))
+    this.config.aggregationRows?.push(new AggregationRow({blockedCol: c0, targetCol: c0, op: ['Sum']}))
     this.config.aggregationRows = [...this.config.aggregationRows!];
+    this.configChange.emit(this.config);
+  }
+  selectAllAggr(index : number) {
+    this.config.aggregationRows[index].op = this.aggregationItems.map(x => x)!;
+    this.configChange.emit(this.config);
+  }
+
+  unselectAllAggr(index : number) {
+    this.config!.aggregationRows[index].op = [];
     this.configChange.emit(this.config);
   }
   addSort(){
@@ -60,5 +76,13 @@ export class RowsComponent implements OnInit {
     this.configChange.emit(this.config);
   }
 
-
+  preview(){
+    let generation: Generation = new Generation({ data: this.dataObj!.data, config: this.config });
+    this.api.generate(generation).subscribe((entity : GenerationEntity) => {
+        this.dialog.open(PreviewSuccessDialogComponent, {disableClose: true, data: {id: entity.id}}).afterClosed().subscribe(() => {
+          window.open(`/generation?id=${entity.id}`, '_blank')
+        })
+    })
+  }
+  
 }

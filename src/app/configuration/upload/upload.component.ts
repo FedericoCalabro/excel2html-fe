@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TOOLTIP_DEFINITIONS } from 'src/app/commons/constants';
 import { ExcelManager } from 'src/app/commons/excelManager';
 import { Config, DataObj } from 'src/app/commons/models';
 
@@ -9,6 +10,8 @@ import { Config, DataObj } from 'src/app/commons/models';
 })
 export class UploadComponent implements OnInit {
 
+  TOOLTIP_DEFINITION = TOOLTIP_DEFINITIONS;
+  
   @Input() dataObj? : DataObj;
   @Input() config! : Config;
 

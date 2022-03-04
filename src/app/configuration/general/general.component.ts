@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TOOLTIP_DEFINITIONS } from 'src/app/commons/constants';
 import { DataObj, Config } from 'src/app/commons/models';
 
 @Component({
@@ -8,6 +9,8 @@ import { DataObj, Config } from 'src/app/commons/models';
 })
 export class GeneralComponent implements OnInit {
 
+  TOOLTIP_DEFINITION = TOOLTIP_DEFINITIONS;
+  
   @Input() dataObj? : DataObj;
   @Input() config! : Config;
 

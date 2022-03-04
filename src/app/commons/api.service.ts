@@ -45,9 +45,6 @@ export class ApiService {
       window.URL.revokeObjectURL(url);
       a.remove();
     })
-
-
-
   }
 
 }
