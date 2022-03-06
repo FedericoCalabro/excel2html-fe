@@ -46,6 +46,7 @@ export class ColumnsComponent implements OnInit {
       mergedFrom : []
     }
     this.mergedColumns = [...this.mergedColumns, obj]
+    this.index++
     console.log(this.mergedColumns)
   }
   removeMerged(i : number){

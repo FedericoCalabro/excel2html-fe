@@ -16,6 +16,7 @@ export class GeneralComponent implements OnInit {
 
   @Output() dataObjChange = new EventEmitter<DataObj>();
   @Output() configChange = new EventEmitter<Config>();
+  @Output() viewChange = new EventEmitter<boolean>();
   @Output() indexTo = new EventEmitter<any>();
 
   constructor() { }

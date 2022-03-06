@@ -7,8 +7,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-@layer components {
-    .iconContainer {
-      @apply p-7 shadow-md mb-3 inline-block;
-    }
+.mat-tooltip{
+  font-size: 11.5pt !important;
 }

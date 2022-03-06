@@ -17,7 +17,7 @@
           <mat-icon class="mx-2 inline scale-[1.1]">hexagon</mat-icon>GENERAL
         </span>
       </ng-template>
-      <app-general #general [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event"></app-general>
+      <app-general #general [(dataObj)]="dataObj" [(config)]="config" (indexTo)="index=$event" (viewChange)="reset()"></app-general>
     </mat-tab>
     <mat-tab [disabled]="!this.dataObj?.data">
       <ng-template mat-tab-label>
