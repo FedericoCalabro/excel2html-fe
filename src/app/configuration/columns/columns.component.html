@@ -4,7 +4,7 @@
         <h1 class="font-bold text-lg">BASE COLUMNS</h1>
         <div class="flex flex-col flex-wrap gap-y-2">
             <div>Choose the columns you want to have in the final view</div>
-            <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [virtualScroll]="true" (remove)="removeCol($event.index)" (clear)="removeCol(-1)"
+            <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [virtualScroll]="true" (remove)="removeCol($event.index)" (clear)="removeCol(-1)" (add)="addCol($event)"
                 appearance="outline" appendTo="body" class="relative" dropdownPosition="auto" [closeOnSelect]="false"
                 [(ngModel)]="this.config!.columns" [readonly]="this.config.view === 'PIVOT'">
                 <ng-template ng-header-tmp>

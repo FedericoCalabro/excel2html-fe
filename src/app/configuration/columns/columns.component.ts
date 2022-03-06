@@ -19,6 +19,10 @@ export class ColumnsComponent implements OnInit {
   @Output() configChange = new EventEmitter<Config>();
   @Output() indexTo = new EventEmitter<any>();
 
+  
+  mergedColumns : MergedColumns[] = [];
+  index = 0;
+
   constructor(
     private snackbar : MatSnackBar
   ) { }
@@ -40,9 +44,6 @@ export class ColumnsComponent implements OnInit {
     this.configChange.emit(this.config);
   }
 
-
-  mergedColumns : MergedColumns[] = [];
-  index = 0;
   addNewColMerged(){
     let nd = this.config.view === "CARD" ? `Merged-${this.index}: {{1}} - {{2}}` : `Merged-${this.index++}`
     let obj : any = {
