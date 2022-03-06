@@ -7,7 +7,7 @@
             <div>What type of view would you like?</div>
             <mat-form-field appearance="outline">
                 <mat-label>View</mat-label>
-                <mat-select [(ngModel)]="config.view" (ngModelChange)="viewChange.emit(true)">
+                <mat-select [(ngModel)]="config.view" (ngModelChange)="viewChange.emit($event)">
                     <mat-option value="TABLE">Table</mat-option>
                     <mat-option value="CARD">Card</mat-option>
                     <mat-option value="PIVOT">Pivot</mat-option>

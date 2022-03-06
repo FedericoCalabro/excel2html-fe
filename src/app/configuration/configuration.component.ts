@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataObj, Config, HtmlObj } from '../commons/models';
 import { ColumnsComponent } from './columns/columns.component';
 
@@ -19,6 +20,7 @@ export class ConfigurationComponent implements OnInit {
   @ViewChild('graphics') graphicsCp! : ColumnsComponent;
 
   constructor(
+    private snackBar : MatSnackBar
   ) { }
 
   ngOnInit(): void {}
@@ -26,11 +28,16 @@ export class ConfigurationComponent implements OnInit {
   tabChange(event : any){
   }
 
-  reset(){
+  reset(view? : "TABLE" | "CARD" | "PIVOT"){
+    console.log(view)
     this.columnsCP.mergedColumns = [];
     this.config = new Config({
       columns: this.dataObj?.columns
     });
+    if(view)
+      this.config.view = view;
+    
+    this.snackBar.open("Configuration Resetted", "OK")
   }
 
 }

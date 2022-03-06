@@ -40,7 +40,7 @@ export class ColumnsComponent implements OnInit {
   mergedColumns : MergedColumns[] = [];
   index = 0;
   addNewColMerged(){
-    let nd = this.config.view === "CARD" ? `Merged-${this.index}:{{1}} - {{2}}` : `Merged-${this.index++}`
+    let nd = this.config.view === "CARD" ? `Merged-${this.index}: {{1}} - {{2}}` : `Merged-${this.index++}`
     let obj : any = {
       nameDefinition : nd,
       mergedFrom : []

@@ -16,7 +16,7 @@ export class GeneralComponent implements OnInit {
 
   @Output() dataObjChange = new EventEmitter<DataObj>();
   @Output() configChange = new EventEmitter<Config>();
-  @Output() viewChange = new EventEmitter<boolean>();
+  @Output() viewChange = new EventEmitter<"TABLE" | "CARD" | "PIVOT">();
   @Output() indexTo = new EventEmitter<any>();
 
   constructor() { }
