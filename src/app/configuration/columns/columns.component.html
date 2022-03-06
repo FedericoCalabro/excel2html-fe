@@ -4,7 +4,7 @@
         <h1 class="font-bold text-lg">BASE COLUMNS</h1>
         <div class="flex flex-col flex-wrap gap-y-2">
             <div>Choose the columns you want to have in the final view</div>
-            <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [virtualScroll]="true"
+            <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [virtualScroll]="true" (remove)="removeCol($event.index)" (clear)="removeCol(-1)"
                 appearance="outline" appendTo="body" class="relative" dropdownPosition="auto" [closeOnSelect]="false"
                 [(ngModel)]="this.config!.columns" [readonly]="this.config.view === 'PIVOT'">
                 <ng-template ng-header-tmp>
@@ -39,7 +39,7 @@
                     <ng-container matColumnDef="Merged Column Name">
                         <th mat-header-cell *matHeaderCellDef>Merged Column Name</th>
                         <td mat-cell *matCellDef="let merge index as i">
-                            <div class="pt-[10px] flex flex-row items-center">
+                            <div class="pt-[10px] flex flex-row items-center mt-2">
                                 <span class="visible md:hidden basis-1/5 relative bottom-1">Merged Column Name: </span>
                                 <mat-form-field appearance="outline">
                                     <input matInput [(ngModel)]="this.mergedColumns[i].nameDefinition">

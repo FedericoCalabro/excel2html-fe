@@ -25,12 +25,15 @@
                     <ng-container matColumnDef="Column">
                         <th mat-header-cell *matHeaderCellDef>Col Name</th>
                         <td mat-cell *matCellDef="let criteria index as i">
-                            <div class="pt-[10px] flex flex-row items-center">
-                                <span class="visible md:hidden basis-1/5 relative bottom-1">Col Name: </span>
-                                <ng-select [items]="this.config.columns!" appearance="outline" [clearable]="false"
-                                    class="w-full" appendTo="body" class="relative" dropdownPosition="auto"
-                                    [virtualScroll]="true" [(ngModel)]="this.config.rowCriteria![i].columnName">
-                                </ng-select>
+                            <div class="flex flex-row items-center">
+                                <span class="visible md:hidden basis-1/5">Column Name: </span>
+                                <mat-form-field appearance="outline" class="pt-4">
+                                    <mat-select [(ngModel)]="this.config.rowCriteria![i].columnName">
+                                        <mat-option *ngFor="let col of getAllColumns()" [value]="col">
+                                            {{col}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
                         </td>
                     </ng-container>
@@ -227,7 +230,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Column Name</mat-label>
                         <mat-select [(ngModel)]="this.config.sortByColumns![i].name">
-                            <mat-option *ngFor="let col of this.config.columns" [value]="col">
+                            <mat-option *ngFor="let col of getAllColumns()" [value]="col">
                                 {{col}}
                             </mat-option>
                         </mat-select>

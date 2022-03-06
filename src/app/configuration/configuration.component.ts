@@ -29,11 +29,12 @@ export class ConfigurationComponent implements OnInit {
   }
 
   reset(view? : "TABLE" | "CARD" | "PIVOT"){
-    console.log(view)
     this.columnsCP.mergedColumns = [];
     this.config = new Config({
       columns: this.dataObj?.columns
     });
+    this.config.themeColor = new Array(this.config.columns.length).fill("#ffffff");
+    this.config.textColor = new Array(this.config.columns.length).fill("#000000");
     if(view)
       this.config.view = view;
     

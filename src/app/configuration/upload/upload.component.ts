@@ -38,6 +38,9 @@ export class UploadComponent implements OnInit {
 
     this.dataObj = new DataObj({ data, columns })
     this.config.columns = [...columns];
+    
+    this.config.themeColor = new Array(this.config.columns.length).fill("#ffffff");
+    this.config.textColor = new Array(this.config.columns.length).fill("#000000");
 
     this.dataObjChange.emit(this.dataObj);
     this.configChange.emit(this.config);

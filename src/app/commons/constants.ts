@@ -6,4 +6,5 @@ export class TOOLTIP_DEFINITIONS {
     static ROWS_AGGREGATION_DESCR : string = "Currently you are allowed to block a max of 1 col per row built with this aggregation framework builder, and the column must be of type Number. Note in order to see something in the final table, you have to at least build one aggregation row."
     static ROWS_SORT_DESCR : string = "Note, if casting to Number fails, that row will be ignored during sorting process."
     static UPLOAD_DESCR : string = "Please make sure your excel file does not contain any spare rows or columns. Otherwise results might be unpredictable."
+    static GRAPHICS_CARD_TITLE_DESCR : string = "WIP"
 }

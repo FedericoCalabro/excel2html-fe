@@ -76,13 +76,15 @@ export class RowsComponent implements OnInit {
     this.configChange.emit(this.config);
   }
 
-  preview(){
-    let generation: Generation = new Generation({ data: this.dataObj!.data, config: this.config });
-    this.api.generate(generation).subscribe((entity : GenerationEntity) => {
-        this.dialog.open(PreviewSuccessDialogComponent, {disableClose: true, data: {id: entity.id}}).afterClosed().subscribe(() => {
-          window.open(`/generation?id=${entity.id}`, '_blank')
-        })
-    })
-  }
+  preview(){this.api.preview(this.dataObj!, this.config)}
   
+
+  getAllColumns(){
+    return [
+      ... new Set(
+        [...this.config.columns,
+          ...this.dataObj?.columns!]
+      )
+    ]
+  }
 }

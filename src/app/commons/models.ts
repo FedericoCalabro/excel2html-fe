@@ -18,19 +18,35 @@ export class Config {
     view : "TABLE" | "CARD" | "PIVOT" = "CARD";
     name : string = "DATA-VIEW";
     addRowCounter : boolean = false;
-    columns : any[] = [];
-    rowCriteria : RowCriteria[] = [];
-    themeColor : string[] = [];
     mergedColumns? : MergedColumns[];
-    textColor : string[] = [];
     aggregationRows : AggregationRow[] = [];
-    enableSorting? : boolean = false; 
     sortByColumns? : SortingColumn[] = [];
+    rowCriteria : RowCriteria[] = [];
+    cardHeaderConfig : CardHeaderConfig = new CardHeaderConfig({});
+
+
+    columns : any[] = [];
+    themeColor : string[] = [];
+    textColor : string[] = [];
 
     constructor(partial : Partial<Config>){
         Object.assign(this, partial);
     }
 }
+
+export class CardHeaderConfig {
+
+    isLink : boolean = true;
+    linkDisplayColumn? : string;
+    linkValueColumn? : string;
+
+    colorsCriteria : CardHeaderColorCriteria[] = [];
+
+    constructor(partial : Partial<CardHeaderConfig>){
+        Object.assign(this, partial);
+    }
+}
+
 
 export class SortingColumn{
     type? : "Number" | "String";
@@ -69,6 +85,15 @@ export class RowCriteria {
     value? : any = "0";
 
     constructor(partial : Partial<RowCriteria>){
+        Object.assign(this, partial);
+    }
+}
+
+export class CardHeaderColorCriteria extends RowCriteria {
+    color : string = "00ff00"
+
+    constructor(partial : Partial<CardHeaderColorCriteria>){
+        super(partial);
         Object.assign(this, partial);
     }
 }

@@ -4,6 +4,7 @@ export class ExcelManager {
     let row = data[0];
     let columns: string[] = [];
     Object.entries(row).forEach((value) => { columns.push(value[0]) })
+    columns.sort()
     return columns;
   }
 
