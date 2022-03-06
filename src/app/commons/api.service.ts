@@ -29,8 +29,8 @@ export class ApiService {
     return this.http.post(URL, {});
   }
 
-  private getFilRes(id : string){
-    const URL = `${this.baseUrl}/download?id=${id}`
+  private getFilRes(what : string, id : string){
+    const URL = `${this.baseUrl}/download/${what}?id=${id}`
     return this.http.post(URL, {}, {responseType: 'blob', observe: 'response'}).pipe(map(res => {
       return new FileResponse({
         filename : res.headers.get("filename")!,
@@ -39,9 +39,8 @@ export class ApiService {
     }));
   }
 
-  public download(id : string){
-    this.getFilRes(id).subscribe((res : any) => {
-      console.log(res)
+  public download(what : string, id : string){
+    this.getFilRes(what, id).subscribe((res : any) => {
       let url = window.URL.createObjectURL(res.blob);
       let a = document.createElement('a');
       document.body.appendChild(a);
@@ -53,6 +52,7 @@ export class ApiService {
       a.remove();
     })
   }
+
 
   public preview(dataObj : DataObj, config : Config){
     if(this.checkAllStuffCompiled(dataObj, config)){

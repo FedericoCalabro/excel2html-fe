@@ -1,4 +1,5 @@
 import { Directive, HostListener, Output, EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscriber } from 'rxjs';
 import * as XLSX from 'xlsx';
 
@@ -10,7 +11,9 @@ export class ReadexcelDirective {
   excelObservable!: Observable<any>;
   @Output() eventEmitter = new EventEmitter();
 
-  constructor() {}
+  constructor(
+    private snackbar : MatSnackBar
+  ) {}
 
   @HostListener('change', ['$event.target'])
   onChange(target: HTMLInputElement) {
@@ -39,6 +42,7 @@ export class ReadexcelDirective {
       const data = XLSX.utils.sheet_to_json(ws);
       subscriber.next(data);
       subscriber.complete();
+      this.snackbar.open("Excel file was loaded successfully", "OK")
     };
   }
 }

@@ -16,14 +16,12 @@ export class GenerationEntity {
 export class Config {
 
     view : "TABLE" | "CARD" | "PIVOT" = "CARD";
-    name : string = "DATA-VIEW";
     addRowCounter : boolean = false;
     mergedColumns? : MergedColumns[];
     aggregationRows : AggregationRow[] = [];
     sortByColumns? : SortingColumn[] = [];
     rowCriteria : RowCriteria[] = [];
     cardHeaderConfig : CardHeaderConfig = new CardHeaderConfig({});
-
 
     columns : any[] = [];
     themeColor : string[] = [];

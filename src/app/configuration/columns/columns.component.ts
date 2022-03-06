@@ -19,7 +19,6 @@ export class ColumnsComponent implements OnInit {
   @Output() configChange = new EventEmitter<Config>();
   @Output() indexTo = new EventEmitter<any>();
 
-  
   mergedColumns : MergedColumns[] = [];
   index = 0;
 

@@ -48,8 +48,8 @@ export class GraphicsComponent implements OnInit {
   getAllColumns(){
     return [
       ... new Set(
-        [...this.config.columns,
-          ...this.dataObj?.columns!]
+        [...this.config.columns || [],
+          ...this.dataObj?.columns || []]
       )
     ]
   }

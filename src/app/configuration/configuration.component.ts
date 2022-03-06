@@ -41,4 +41,25 @@ export class ConfigurationComponent implements OnInit {
     this.snackBar.open("Configuration Resetted", "OK")
   }
 
+  updateConfig(config : Config) : any{
+    console.log(this.config)
+
+    console.log("data cols =" + this.dataObj?.columns)
+
+    console.log(config.columns)
+    let copy = [...config.columns].filter((col) => !config.mergedColumns?.map(merged => merged.nameDefinition).includes(col))
+    console.log(copy)
+    for (let i = 0; i < copy.length; i++) {
+      const col = copy[i];
+      if(!this.dataObj?.columns.includes(col)){
+        return this.snackBar.open("Config not valid for this excel", "OK")
+      }
+    }
+
+    this.config = new Config({...config})
+    this.columnsCP.mergedColumns = config.mergedColumns || [];
+    console.log(this.config)
+    this.snackBar.open("Configuration Loaded successfully", "OK")
+  }
+
 }

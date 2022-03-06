@@ -42,13 +42,13 @@
                     <mat-form-field class="w-full md:w-4/5" appearance="outline">
                         <mat-label>Link Display Value Column</mat-label>
                         <mat-select [(ngModel)]="this.config.cardHeaderConfig.linkDisplayColumn" [disabled]="!this.config.cardHeaderConfig.isLink">
-                            <mat-option *ngFor="let col of this.config.columns" [value]="col">{{col}}</mat-option>
+                            <mat-option *ngFor="let col of getAllColumns()" [value]="col">{{col}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="w-full md:w-4/5" appearance="outline">
                         <mat-label>Link Source Value Column</mat-label>
                         <mat-select [(ngModel)]="this.config.cardHeaderConfig.linkValueColumn" [disabled]="!this.config.cardHeaderConfig.isLink">
-                            <mat-option *ngFor="let col of this.config.columns" [value]="col">{{col}}</mat-option>
+                            <mat-option *ngFor="let col of getAllColumns()" [value]="col">{{col}}</mat-option>
                         </mat-select>
                     </mat-form-field>
             </div>

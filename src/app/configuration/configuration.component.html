@@ -9,7 +9,7 @@
           <mat-icon class="mx-2 inline scale-[1.1]" >upload</mat-icon>UPLOAD
         </span>
       </ng-template>
-      <app-upload #upload [(dataObj)]="dataObj" [(config)]="config" (onFileUploaded)="reset()" (indexTo)="index=$event"></app-upload>
+      <app-upload #upload [(dataObj)]="dataObj" [(config)]="config" (onFileUploaded)="reset()" (indexTo)="index=$event" (onConfigUploaded)="reset(); updateConfig($event)"></app-upload>
     </mat-tab>
     <mat-tab [disabled]="!this.dataObj?.data">
       <ng-template mat-tab-label>

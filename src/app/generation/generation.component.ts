@@ -27,6 +27,8 @@ export class GenerationComponent implements OnInit {
       this.api.get(this.id).subscribe(generation => this.generation = generation)
   }
 
-  download() {this.api.download(this.id!)}
+  download(what : string) {
+    this.api.download(what, this.id!)
+  }
 
 }

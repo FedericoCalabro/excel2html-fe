@@ -11,10 +11,16 @@
     <img src="/assets/images/example.png" class="w-full max-w-screen-md cursor-pointer" (click)="href.click()">
   </div>
   <div class="flex flex-row justify-between">
-    <button mat-raised-button (click)="uploader.click()" color="primary">
-      <input hidden type="file" #uploader appReadexcel #readexcel="readexcel" (eventEmitter)="onUpload($event)" />
-      UPLOAD
-    </button>
+    <div class="flex flex-row gap-x-2">
+      <button mat-raised-button (click)="uploader.click()" color="primary">
+        <input hidden [multiple]="false" type="file" #uploader appReadexcel #readexcel="readexcel" (eventEmitter)="onUpload($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+        UPLOAD
+      </button>
+      <button mat-raised-button (click)="uploaderConfig.click()" color="primary" [disabled]="!this.dataObj?.data">
+        <input hidden type="file" #uploaderConfig (change)="onConfigSelect($event)" [multiple]="false" accept="application/json"/>
+        LOAD CONFIG
+      </button>
+    </div>
     <button mat-raised-button color=accent [disabled]="!this.dataObj?.data" (click)="indexTo.emit(1)">NEXT</button>
   </div>
 </div>
