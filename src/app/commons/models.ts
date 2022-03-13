@@ -10,19 +10,20 @@ export class Generation {
 export class GenerationEntity {
     id? : string;
     html? : string;
+    config? : string;
     blobl? : any;
 }
 
 export class Config {
 
-    view : "TABLE" | "CARD" | "PIVOT" = "CARD";
+    view : "TABLE" | "CARD" | "PIVOT" | "PLOT" = "PLOT";
     addRowCounter : boolean = false;
     mergedColumns? : MergedColumns[];
     aggregationRows : AggregationRow[] = [];
     sortByColumns? : SortingColumn[] = [];
     rowCriteria : RowCriteria[] = [];
     cardHeaderConfig : CardHeaderConfig = new CardHeaderConfig({});
-
+    plotConfig : PlotConfig = new PlotConfig({})
     columns : any[] = [];
     themeColor : string[] = [];
     textColor : string[] = [];
@@ -32,9 +33,26 @@ export class Config {
     }
 }
 
+export class PlotConfig {
+
+    labelXValue : string = "X axis"
+    labelYValue : string = "Y axis"
+    type : string = "CACTUS"
+    labelX : string = "X Column"
+    labelY : string = "Y Column"
+    blockedCol? : string;
+    targetCol? : string;
+    colors : string[] = ['#ff0000'];
+    styles: string[] = ['circle']
+
+    constructor(partial : Partial<Config>){
+        Object.assign(this, partial);
+    }
+}
+
 export class CardHeaderConfig {
 
-    isLink : boolean = true;
+    link : boolean = true;
     linkDisplayColumn? : string;
     linkValueColumn? : string;
 

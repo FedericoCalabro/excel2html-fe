@@ -64,10 +64,22 @@ export class ApiService {
       })
     }
   }
+
   private checkAllStuffCompiled(dataObj : DataObj, config : Config) : boolean {
-    if(config.cardHeaderConfig?.isLink && config.view === 'CARD'){
+    if(config.cardHeaderConfig?.link && config.view === 'CARD'){
       if(!config.cardHeaderConfig.linkDisplayColumn || !config.cardHeaderConfig.linkValueColumn){
         this.snackbar.open("Link Display Column AND Link Value Column are mandatory if your header is link", "OK")
+        return false;
+      }
+    }
+
+    if(config.view === 'PLOT'){
+      if(!config.plotConfig.blockedCol || !config.plotConfig.targetCol){
+        this.snackbar.open("Please Select a Blocked AND a Target Col in Graphics Tab", "OK")
+        return false;
+      }
+      if(!config.plotConfig.labelX || !config.plotConfig.labelY){
+        this.snackbar.open("Label X AND Label Y should not be empty values", "OK")
         return false;
       }
     }

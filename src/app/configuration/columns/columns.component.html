@@ -6,7 +6,7 @@
             <div>Choose the columns you want to have in the final view</div>
             <ng-select [items]="this.dataObj?.columns!" [multiple]="true" [clearable]="true" [virtualScroll]="true" (remove)="removeCol($event.index)" (clear)="removeCol(-1)" (add)="addCol($event)"
                 appearance="outline" appendTo="body" class="relative" dropdownPosition="auto" [closeOnSelect]="false"
-                [(ngModel)]="this.config!.columns" [readonly]="this.config.view === 'PIVOT'">
+                [(ngModel)]="this.config!.columns" [readonly]="this.config.view === 'PIVOT' || this.config.view === 'PLOT'">
                 <ng-template ng-header-tmp>
                     <div class="py-2">
                         <button (click)="selectAll()" mat-stroked-button class="!mr-2">SELECT ALL</button>
@@ -18,9 +18,9 @@
                 </ng-template>
             </ng-select>
         </div>
-        <mat-divider class="w-full" *ngIf="this.config.view !== 'PIVOT'"></mat-divider>
+        <mat-divider class="w-full" *ngIf="this.config.view !== 'PIVOT' && this.config.view !== 'PLOT'"></mat-divider>
 
-        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view !== 'PIVOT'">
+        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view !== 'PIVOT' && this.config.view !== 'PLOT'">
             <h1 class="font-bold text-lg">NEW COLUMNS (MERGED)</h1>
             <div class="flex flex-col md:flex-row justify-between mb-1">
                 <div>

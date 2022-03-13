@@ -54,10 +54,18 @@ export class GraphicsComponent implements OnInit {
     ]
   }
 
-  drop(event: any) {
+  dropColor(event: any) {
     moveItemInArray(this.config.columns!, event.previousIndex, event.currentIndex);
     moveItemInArray(this.config.themeColor!, event.previousIndex, event.currentIndex);
     moveItemInArray(this.config.textColor!, event.previousIndex, event.currentIndex);
+  }
+  dropDataset(event: any) {
+    moveItemInArray(this.config.plotConfig.colors!, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.config.plotConfig.styles!, event.previousIndex, event.currentIndex);
+  }
+
+  getRandColor(){
+    return "#" + Math.floor(Math.random()*16777215).toString(16);
   }
 
 }

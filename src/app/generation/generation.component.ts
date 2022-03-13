@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../commons/api.service';
-import { FileResponse, GenerationEntity, HtmlObj } from '../commons/models';
+import { Config, FileResponse, GenerationEntity, HtmlObj } from '../commons/models';
 
 @Component({
   selector: 'app-generation',
@@ -10,9 +10,10 @@ import { FileResponse, GenerationEntity, HtmlObj } from '../commons/models';
 })
 export class GenerationComponent implements OnInit {
 
-  // htmlObj? : HtmlObj;
   generation? : GenerationEntity;
   id?: string;
+
+  isPlot : boolean = false;
 
   constructor(
     private api : ApiService,
@@ -22,9 +23,13 @@ export class GenerationComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedSnap.snapshot.queryParams['id'];
     
-    // let generation = JSON.parse(sessionStorage.getItem('generationPreview') || '');
     if(this.id)
-      this.api.get(this.id).subscribe(generation => this.generation = generation)
+      this.api.get(this.id).subscribe(generation => {
+        this.generation = generation
+
+        let config : Config = JSON.parse(this.generation.config || '')
+        if(config.view === 'PLOT') this.isPlot = true;
+      })
   }
 
   download(what : string) {

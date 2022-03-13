@@ -20,6 +20,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from './commons/error-interceptor';
 import { GeneralComponent } from './configuration/general/general.component';
 import { PreviewSuccessDialogComponent } from './configuration/preview-success-dialog/preview-success-dialog.component';
+import { RunScriptsDirective } from './commons/run-scripts.directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PreviewSuccessDialogComponent } from './configuration/preview-success-d
     GraphicsComponent,
     GenerationComponent,
     GeneralComponent,
+    RunScriptsDirective,
     PreviewSuccessDialogComponent,
   ],
   imports: [

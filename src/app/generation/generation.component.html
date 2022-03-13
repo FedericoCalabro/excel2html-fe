@@ -3,6 +3,9 @@
     <button mat-raised-button color="primary" (click)="download('html')">DOWNLOAD HTML</button>
 </div>
 
+<div *ngIf="generation?.html && generation?.id" [innerHTML]="generation?.html | safeHtml" runScripts class="h-full w-full absolute top-0"></div>
 
-<div *ngIf="generation?.html && generation?.id" [innerHTML]="generation?.html | safeHtml" class="h-full w-full absolute top-0"></div>
-<div *ngIf="!(generation?.html && generation?.id)">LOADING, PLEASE WAIT</div>
+<div class="text-lg font-bold flex flex-col justify-center items-center h-full w-full">
+    <div *ngIf="!(generation?.html && generation?.id)">LOADING, PLEASE WAIT</div>
+    <div *ngIf="isPlot">LIVE PREVIEW IS NOT AVAIABLE FOR PLOTS. PLEASE DOWNLOAD THE HTML FILE AND OPEN IT</div>
+</div>

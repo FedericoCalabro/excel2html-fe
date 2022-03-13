@@ -7,4 +7,5 @@ export class TOOLTIP_DEFINITIONS {
     static ROWS_SORT_DESCR : string = "Note, if casting to Number fails, that row will be ignored during sorting process."
     static UPLOAD_DESCR : string = "Please make sure your excel file does not contain any spare rows or columns. Otherwise results might be unpredictable."
     static GRAPHICS_CARD_TITLE_DESCR : string = "WIP"
+    static GRAPHICS_PLOT_COLOR : string = "With Scatter Plot Type, several data sets will be found blocking a certain column, so you can choose a color for each one on theme, in the order they will be find. If a theme won't be select, a random color will be generated"
 }

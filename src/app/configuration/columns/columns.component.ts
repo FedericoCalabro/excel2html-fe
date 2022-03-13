@@ -40,6 +40,7 @@ export class ColumnsComponent implements OnInit {
     this.config!.columns = [];
     this.config.themeColor = [];
     this.config.textColor = [];
+    this.config.plotConfig.colors = []
     this.configChange.emit(this.config);
   }
 

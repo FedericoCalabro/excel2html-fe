@@ -29,7 +29,7 @@
                                 <span class="visible md:hidden basis-1/5">Column Name: </span>
                                 <mat-form-field appearance="outline" class="pt-4">
                                     <mat-select [(ngModel)]="this.config.rowCriteria![i].columnName">
-                                        <mat-option *ngFor="let col of getAllColumns()" [value]="col">
+                                        <mat-option *ngFor="let col of dataObj?.columns" [value]="col">
                                             {{col}}
                                         </mat-option>
                                     </mat-select>
@@ -230,7 +230,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Column Name</mat-label>
                         <mat-select [(ngModel)]="this.config.sortByColumns![i].name">
-                            <mat-option *ngFor="let col of getAllColumns()" [value]="col">
+                            <mat-option *ngFor="let col of dataObj?.columns" [value]="col">
                                 {{col}}
                             </mat-option>
                         </mat-select>

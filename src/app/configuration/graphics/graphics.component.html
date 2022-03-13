@@ -1,173 +1,280 @@
 <div class="p-8 flex flex-col flex-wrap justify-between h-full w-full">
 
     <div class="flex flex-col flex-wrap gap-y-8">
-        <div class="flex flex-col flex-wrap gap-y-2">
-            <h1 class="font-bold text-lg">ORDERS, BACKGROUND AND TEXT COLOR</h1>
-            <div>Choose order columns, background color and text color for each data cell
-                <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.GRAPHICS_DESCR">
-                    help</mat-icon>
-            </div>
-            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-                <div class="example-box items-center gap-1 md:gap-0" *ngFor="let col of config.columns; index as i"
-                    cdkDrag>
-                    <div class="basis-full md:basis-1/3">{{col}}</div>
-                    <div class="basis-full md:basis-1/3">BG Color:
-                        <input [(colorPicker)]="config.themeColor[i]" (colorPickerChange)="config.themeColor[i]=$event"
-                            cpPosition="auto" class="cp" [style.background]="config.themeColor[i]" />
-                    </div>
-                    <div class="basis-full md:basis-auto">Text Color:
-                        <input [(colorPicker)]="config.textColor[i]" (colorPickerChange)="config.textColor[i]=$event"
-                            cpPosition="left" class="cp" [style.background]="config.textColor[i]" />
+        <div *ngIf="this.config.view !== 'PLOT'">
+            <div class="flex flex-col flex-wrap gap-y-2">
+                <h1 class="font-bold text-lg">ORDERS, BACKGROUND AND TEXT COLOR</h1>
+                <div>Choose order columns, background color and text color for each data cell
+                    <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.GRAPHICS_DESCR">
+                        help</mat-icon>
+                </div>
+                <div cdkDropList class="example-list" (cdkDropListDropped)="dropColor($event)">
+                    <div class="example-box items-center gap-1 md:gap-0" *ngFor="let col of config.columns; index as i"
+                        cdkDrag>
+                        <div class="basis-full md:basis-1/3">{{col}}</div>
+                        <div class="basis-full md:basis-1/3">BG Color:
+                            <input [(colorPicker)]="config.themeColor[i]"
+                                (colorPickerChange)="config.themeColor[i]=$event" cpPosition="auto" class="cp"
+                                [style.background]="config.themeColor[i]" />
+                        </div>
+                        <div class="basis-full md:basis-auto">Text Color:
+                            <input [(colorPicker)]="config.textColor[i]"
+                                (colorPickerChange)="config.textColor[i]=$event" cpPosition="left" class="cp"
+                                [style.background]="config.textColor[i]" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <mat-divider class="w-full" *ngIf="this.config.view==='CARD'"></mat-divider>
+            <mat-divider class="w-full" *ngIf="this.config.view==='CARD'"></mat-divider>
 
-        <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view==='CARD'">
-            <h1 class="font-bold text-lg">CARD HEADER CONFIGURATION</h1>
-            <div>Manage card title behaviour and its style
-                <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.GRAPHICS_CARD_TITLE_DESCR">
-                    help</mat-icon>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between gap-x-4">
+            <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view==='CARD'">
+                <h1 class="font-bold text-lg">CARD HEADER CONFIGURATION</h1>
+                <div>Manage card title behaviour and its style
+                    <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.GRAPHICS_CARD_TITLE_DESCR">
+                        help</mat-icon>
+                </div>
+                <div class="flex flex-col md:flex-row justify-between gap-x-4">
                     <mat-form-field class="w-full md:w-4/5" appearance="outline">
                         <mat-label>Is it a link?</mat-label>
-                        <mat-select [(ngModel)]="this.config.cardHeaderConfig.isLink">
+                        <mat-select [(ngModel)]="this.config.cardHeaderConfig.link">
                             <mat-option [value]="true">Yes</mat-option>
                             <mat-option [value]="false">No</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="w-full md:w-4/5" appearance="outline">
                         <mat-label>Link Display Value Column</mat-label>
-                        <mat-select [(ngModel)]="this.config.cardHeaderConfig.linkDisplayColumn" [disabled]="!this.config.cardHeaderConfig.isLink">
+                        <mat-select [(ngModel)]="this.config.cardHeaderConfig.linkDisplayColumn"
+                            [disabled]="!this.config.cardHeaderConfig.link">
                             <mat-option *ngFor="let col of getAllColumns()" [value]="col">{{col}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="w-full md:w-4/5" appearance="outline">
                         <mat-label>Link Source Value Column</mat-label>
-                        <mat-select [(ngModel)]="this.config.cardHeaderConfig.linkValueColumn" [disabled]="!this.config.cardHeaderConfig.isLink">
+                        <mat-select [(ngModel)]="this.config.cardHeaderConfig.linkValueColumn"
+                            [disabled]="!this.config.cardHeaderConfig.link">
                             <mat-option *ngFor="let col of getAllColumns()" [value]="col">{{col}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-            </div>
-
-            <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view === 'CARD'">
-                <div class="flex flex-col md:flex-row justify-between">
-                    <div>
-                        Here you can base header's background color on some value
-                        <mat-icon color="primary"
-                            [matTooltip]="TOOLTIP_DEFINITION.ROWS_FILTER_DESCR">
-                            help</mat-icon>
-                    </div>
-                    <button mat-raised-button color="primary" (click)="addColorCriteria()">ADD COLOR CRITERIA</button>
                 </div>
 
-                <div *ngIf="this.config.cardHeaderConfig.colorsCriteria!.length > 0">
+                <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view === 'CARD'">
+                    <div class="flex flex-col md:flex-row justify-between">
+                        <div>
+                            Here you can base header's background color on some value
+                            <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.ROWS_FILTER_DESCR">
+                                help</mat-icon>
+                        </div>
+                        <button mat-raised-button color="primary" (click)="addColorCriteria()">ADD COLOR
+                            CRITERIA</button>
+                    </div>
 
-                    <div class="max-h-[350px] overflow-y-auto p-[1px]">
-                        <table mat-table [dataSource]="this.config.cardHeaderConfig.colorsCriteria!"
-                            class="mat-elevation-z4 h-full w-full px-2 text-center">
-        
-                            <ng-container matColumnDef="Column">
-                                <th mat-header-cell *matHeaderCellDef>Col Name</th>
-                                <td mat-cell *matCellDef="let criteria index as i">
-                                    <div class="flex flex-row items-center">
-                                        <span class="visible md:hidden basis-1/5 relative bottom-1">Column Name: </span>
-                                        <mat-form-field appearance="outline" class="pt-4">
-                                            <mat-select [(ngModel)]="this.config.cardHeaderConfig.colorsCriteria![i].columnName">
-                                                <mat-option *ngFor="let col of getAllColumns()" [value]="col">
-                                                    {{col}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </td>
-                            </ng-container>
-        
-                            <ng-container matColumnDef="Type">
-                                <th mat-header-cell *matHeaderCellDef>Type</th>
-                                <td mat-cell *matCellDef="let criteria; index as i">
-                                    <div class="flex flex-row items-center">
-                                        <span class="visible md:hidden basis-1/5">Type: </span>
-                                        <mat-form-field appearance="outline" class="pt-4">
-                                            <mat-select [(value)]="this.config.cardHeaderConfig.colorsCriteria![i].type">
-                                                <mat-option value="String">String</mat-option>
-                                                <mat-option value="Number">Number</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </td>
-                            </ng-container>
-        
-                            <ng-container matColumnDef="Op">
-                                <th mat-header-cell *matHeaderCellDef>Op</th>
-                                <td mat-cell *matCellDef="let criteria; index as i">
-                                    <div class="flex flex-row items-center">
-                                        <span class="visible md:hidden basis-1/5">Op: </span>
-                                        <mat-form-field appearance="outline" class="pt-4">
-                                            <mat-select [(value)]="this.config.cardHeaderConfig.colorsCriteria![i].op">
-                                                <mat-option value=">">></mat-option>
-                                                <mat-option value="&lt;">&lt;</mat-option>
-                                                <mat-option value="==">==</mat-option>
-                                                <mat-option value="!=">!=</mat-option>
-                                                <mat-option *ngIf="this.config.cardHeaderConfig.colorsCriteria![i]?.type==='String'" value="Regex">
-                                                    Regex</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </td>
-                            </ng-container>
+                    <div *ngIf="this.config.cardHeaderConfig.colorsCriteria!.length > 0">
 
-                            <ng-container matColumnDef="Value">
-                                <th mat-header-cell *matHeaderCellDef>Value</th>
-                                <td mat-cell *matCellDef="let criteria; index as i">
-                                    <div class="flex flex-row items-center">
-                                        <span class="visible md:hidden basis-1/5">Value: </span>
-                                        <mat-form-field appearance="outline" class="pt-4">
-                                            <input matInput [(ngModel)]="this.config.cardHeaderConfig.colorsCriteria![i].value">
-                                        </mat-form-field>
-                                    </div>
-                                </td>
-                            </ng-container>
-        
-                            <ng-container matColumnDef="Color">
-                                <th mat-header-cell *matHeaderCellDef>Color</th>
-                                <td mat-cell *matCellDef="let criteria; index as i">
-                                    <div class="flex flex-row items-center">
-                                        <span class="visible md:hidden basis-1/5">Color: </span>
-                                        <input [(colorPicker)]="this.config.cardHeaderConfig.colorsCriteria[i].color" (colorPickerChange)="this.config.cardHeaderConfig.colorsCriteria[i].color"
-                                        cpPosition="left" class="cp" [style.background]="this.config.cardHeaderConfig.colorsCriteria[i].color" />
-                                    </div>
-                                </td>
-                            </ng-container>
-        
-                            <ng-container matColumnDef="Action">
-                                <th mat-header-cell *matHeaderCellDef></th>
-                                <td mat-cell *matCellDef="let criteria; index as i">
-                                    <div class="hidden md:block">
-                                        <button mat-mini-fab (click)="removeColorCriteria(i)">
-                                            <mat-icon color="warn">delete</mat-icon>
-                                        </button>
-                                    </div>
-                                    <div class="flex md:hidden flex-row justify-center">
-                                        <button mat-raised-button color="accent" (click)="removeColorCriteria(i)" class="w-full">
-                                            <mat-icon color="warn">delete</mat-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </ng-container>
-        
-                            <tr mat-header-row *matHeaderRowDef="['Column','Type', 'Op','Value', 'Color', 'Action']"></tr>
-                            <tr mat-row *matRowDef="let row; columns: ['Column','Type','Op','Value', 'Color', 'Action'];"></tr>
-                        </table>
+                        <div class="max-h-[350px] overflow-y-auto p-[1px]">
+                            <table mat-table [dataSource]="this.config.cardHeaderConfig.colorsCriteria!"
+                                class="mat-elevation-z4 h-full w-full px-2 text-center">
+
+                                <ng-container matColumnDef="Column">
+                                    <th mat-header-cell *matHeaderCellDef>Col Name</th>
+                                    <td mat-cell *matCellDef="let criteria index as i">
+                                        <div class="flex flex-row items-center">
+                                            <span class="visible md:hidden basis-1/5 relative bottom-1">Column Name:
+                                            </span>
+                                            <mat-form-field appearance="outline" class="pt-4">
+                                                <mat-select
+                                                    [(ngModel)]="this.config.cardHeaderConfig.colorsCriteria![i].columnName">
+                                                    <mat-option *ngFor="let col of getAllColumns()" [value]="col">
+                                                        {{col}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Type">
+                                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                                    <td mat-cell *matCellDef="let criteria; index as i">
+                                        <div class="flex flex-row items-center">
+                                            <span class="visible md:hidden basis-1/5">Type: </span>
+                                            <mat-form-field appearance="outline" class="pt-4">
+                                                <mat-select
+                                                    [(value)]="this.config.cardHeaderConfig.colorsCriteria![i].type">
+                                                    <mat-option value="String">String</mat-option>
+                                                    <mat-option value="Number">Number</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Op">
+                                    <th mat-header-cell *matHeaderCellDef>Op</th>
+                                    <td mat-cell *matCellDef="let criteria; index as i">
+                                        <div class="flex flex-row items-center">
+                                            <span class="visible md:hidden basis-1/5">Op: </span>
+                                            <mat-form-field appearance="outline" class="pt-4">
+                                                <mat-select
+                                                    [(value)]="this.config.cardHeaderConfig.colorsCriteria![i].op">
+                                                    <mat-option value=">">></mat-option>
+                                                    <mat-option value="&lt;">&lt;</mat-option>
+                                                    <mat-option value="==">==</mat-option>
+                                                    <mat-option value="!=">!=</mat-option>
+                                                    <mat-option
+                                                        *ngIf="this.config.cardHeaderConfig.colorsCriteria![i]?.type==='String'"
+                                                        value="Regex">
+                                                        Regex</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Value">
+                                    <th mat-header-cell *matHeaderCellDef>Value</th>
+                                    <td mat-cell *matCellDef="let criteria; index as i">
+                                        <div class="flex flex-row items-center">
+                                            <span class="visible md:hidden basis-1/5">Value: </span>
+                                            <mat-form-field appearance="outline" class="pt-4">
+                                                <input matInput
+                                                    [(ngModel)]="this.config.cardHeaderConfig.colorsCriteria![i].value">
+                                            </mat-form-field>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Color">
+                                    <th mat-header-cell *matHeaderCellDef>Color</th>
+                                    <td mat-cell *matCellDef="let criteria; index as i">
+                                        <div class="flex flex-row items-center">
+                                            <span class="visible md:hidden basis-1/5">Color: </span>
+                                            <input
+                                                [(colorPicker)]="this.config.cardHeaderConfig.colorsCriteria[i].color"
+                                                (colorPickerChange)="this.config.cardHeaderConfig.colorsCriteria[i].color"
+                                                cpPosition="left" class="cp"
+                                                [style.background]="this.config.cardHeaderConfig.colorsCriteria[i].color" />
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Action">
+                                    <th mat-header-cell *matHeaderCellDef></th>
+                                    <td mat-cell *matCellDef="let criteria; index as i">
+                                        <div class="hidden md:block">
+                                            <button mat-mini-fab (click)="removeColorCriteria(i)">
+                                                <mat-icon color="warn">delete</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="flex md:hidden flex-row justify-center">
+                                            <button mat-raised-button color="accent" (click)="removeColorCriteria(i)"
+                                                class="w-full">
+                                                <mat-icon color="warn">delete</mat-icon>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row
+                                    *matHeaderRowDef="['Column','Type', 'Op','Value', 'Color', 'Action']">
+                                </tr>
+                                <tr mat-row
+                                    *matRowDef="let row; columns: ['Column','Type','Op','Value', 'Color', 'Action'];">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="this.config.view === 'PLOT'">
+            <div class="flex flex-col flex-wrap gap-y-2">
+                <h1 class="font-bold text-lg">PLOT CONFIGURATION</h1>
+                <mat-form-field appearance="outline">
+                    <mat-label>Plot Type</mat-label>
+                    <mat-select [(ngModel)]="this.config.plotConfig.type" (ngModelChange)="this.config.plotConfig.colors.splice(1)">
+                        <mat-option value="CACTUS">Cactus</mat-option>
+                        <mat-option value="SCATTER">Scatter</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col flex-wrap gap-y-2">
+                <h1 class="font-bold text-lg">{{this.config.plotConfig.type}} SETTINGS</h1>
+                <mat-form-field appearance="outline">
+                    <mat-label>Blocked Column</mat-label>
+                    <mat-select [(ngModel)]="this.config.plotConfig.blockedCol">
+                        <mat-option *ngFor="let col of dataObj?.columns" [value]="col">{{col}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Target Column</mat-label>
+                    <mat-select [(ngModel)]="this.config.plotConfig.targetCol">
+                        <mat-option *ngFor="let col of dataObj?.columns" [value]="col">{{col}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="this.config.plotConfig.type === 'SCATTER' ">
+                    <mat-label>X Axis Column Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="this.config.plotConfig.labelX">
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="this.config.plotConfig.type === 'SCATTER' ">
+                    <mat-label>Y Axis Column Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="this.config.plotConfig.labelY">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>X Label Value</mat-label>
+                    <input matInput type="text" [(ngModel)]="this.config.plotConfig.labelXValue">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Y Label Value</mat-label>
+                    <input matInput type="text" [(ngModel)]="this.config.plotConfig.labelYValue">
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col flex-wrap gap-y-2">
+                <h1 class="font-bold text-lg">CONFIGURE DATASETS COLOR THEME</h1>
+                <div class="flex flex-col md:flex-row justify-between">
+                    <div>
+                        {{this.config.plotConfig.type === 'SCATTER' ? 'Choose a theme for each dataset that will be found' : 'Choose the color you like the most'}}
+                        <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.GRAPHICS_PLOT_COLOR">help</mat-icon>
+                    </div>
+                    <button mat-raised-button color="primary"
+                        (click)="this.config.plotConfig.colors.push(getRandColor()); this.config.plotConfig.styles.push('circle');"
+                        *ngIf="this.config.plotConfig.type === 'CACTUS'">ADD COLOR</button>
+                </div>
+                <div cdkDropList class="example-list" (cdkDropListDropped)="dropDataset($event)"
+                    *ngIf="this.config.plotConfig.colors.length > 0">
+                    <div class="example-box items-center gap-1 md:gap-0" *ngFor="let col of this.config.plotConfig.colors; index as i" cdkDrag>
+                        <div>DataSet {{i+1}}:</div>
+                        <div>
+                            Theme:
+                            <input [(colorPicker)]="this.config.plotConfig.colors[i]"
+                                (colorPickerChange)="this.config.plotConfig.colors[i]=$event" cpPosition="auto"
+                                class="cp" [style.background]="this.config.plotConfig.colors[i]" />
+                        </div>
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Point Style:</mat-label>
+                                <mat-select [(ngModel)]="this.config.plotConfig.styles[i]">
+                                    <mat-option value="circle">Circle</mat-option>
+                                    <mat-option value="crossRot">Cross</mat-option>
+                                    <mat-option value="rect">Rectangle</mat-option>
+                                    <mat-option value="rectRounded">Rectangle Rounded</mat-option>
+                                    <mat-option value="rectRot">Diamond</mat-option>
+                                    <mat-option value="start">Start</mat-option>
+                                    <mat-option value="triangle">Triangle</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-mini-fab color="warn" (click)="this.config.plotConfig.colors.splice(i,1)">
+                                <mat-icon color="accent">delete</mat-icon>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
-
         <div class="flex flex-row justify-end mt-2">
             <button mat-raised-button color="accent" (click)="preview()">GENERATE PREVIEW</button>
         </div>
