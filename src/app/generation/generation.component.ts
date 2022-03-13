@@ -13,8 +13,6 @@ export class GenerationComponent implements OnInit {
   generation? : GenerationEntity;
   id?: string;
 
-  isPlot : boolean = false;
-
   constructor(
     private api : ApiService,
     private activatedSnap : ActivatedRoute ,
@@ -28,7 +26,6 @@ export class GenerationComponent implements OnInit {
         this.generation = generation
 
         let config : Config = JSON.parse(this.generation.config || '')
-        if(config.view === 'PLOT') this.isPlot = true;
       })
   }
 

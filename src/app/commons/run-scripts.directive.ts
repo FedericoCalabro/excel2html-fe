@@ -21,7 +21,13 @@ export class RunScriptsDirective implements OnInit {
                 scriptCopy.src = script.src;
             }
             scriptCopy.async = false;
-            script.parentNode!.replaceChild(scriptCopy, script);
+            
+            if(script.innerHTML === "const myChart = new Chart(document.getElementById('myChart'),config);"){
+                setTimeout(() => {
+                    script.parentNode!.replaceChild(scriptCopy, script);
+                }, 1000);
+            }else
+                script.parentNode!.replaceChild(scriptCopy, script);
         }
     }
 }
