@@ -12,6 +12,7 @@ export class GenerationComponent implements OnInit {
 
   generation? : GenerationEntity;
   id?: string;
+  loading : boolean = true;
 
   constructor(
     private api : ApiService,
@@ -24,8 +25,14 @@ export class GenerationComponent implements OnInit {
     if(this.id)
       this.api.get(this.id).subscribe(generation => {
         this.generation = generation
-
         let config : Config = JSON.parse(this.generation.config || '')
+        if(config.view === 'PLOT'){
+          setTimeout(() => {
+            this.loading = false;
+          }, 1000);
+        }else{
+          this.loading = false;
+        }
       })
   }
 
