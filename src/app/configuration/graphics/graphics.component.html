@@ -28,7 +28,7 @@
 
             <mat-divider class="w-full" *ngIf="this.config.view==='CARD'"></mat-divider>
 
-            <div class="flex flex-col flex-wrap gap-y-2" *ngIf="this.config.view==='CARD'">
+            <div class="flex flex-col flex-wrap gap-y-2 mt-4" *ngIf="this.config.view==='CARD'">
                 <h1 class="font-bold text-lg">CARD HEADER CONFIGURATION</h1>
                 <div>Manage card title behaviour and its style
                     <mat-icon color="primary" [matTooltip]="TOOLTIP_DEFINITION.GRAPHICS_CARD_TITLE_DESCR">
@@ -247,9 +247,13 @@
                         <div>DataSet {{i+1}}:</div>
                         <div>
                             Theme:
-                            <input [(colorPicker)]="this.config.plotConfig.colors[i]"
-                                (colorPickerChange)="this.config.plotConfig.colors[i]=$event" cpPosition="auto"
+                                <input [(colorPicker)]="this.config.plotConfig.colors[i]"
+                                (colorPickerChange)="this.config.plotConfig.colors[i]=$event;" cpPosition="auto"
                                 class="cp" [style.background]="this.config.plotConfig.colors[i]" />
+
+                                <!-- <input [(colorPicker)]="config.themeColor[i]"
+                                (colorPickerChange)="config.themeColor[i]=$event" cpPosition="auto" 
+                                class="cp" [style.background]="config.themeColor[i]" /> -->
                         </div>
                         <div>
                             <mat-form-field appearance="outline">

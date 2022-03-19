@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon'
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select'
@@ -38,6 +38,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     DragDropModule,
     MatTooltipModule,
     ColorPickerModule,
+    ReactiveFormsModule,
     MatSnackBarModule,
     MatDividerModule,
     MatDialogModule,

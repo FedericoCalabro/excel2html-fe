@@ -19,8 +19,9 @@ import { GenerationComponent } from './generation/generation.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from './commons/error-interceptor';
 import { GeneralComponent } from './configuration/general/general.component';
-import { PreviewSuccessDialogComponent } from './configuration/preview-success-dialog/preview-success-dialog.component';
+import { PreviewSuccessDialogComponent } from './dialogs/preview-success-dialog/preview-success-dialog.component';
 import { RunScriptsDirective } from './commons/run-scripts.directive';
+import { SendToServerDialogComponent } from './dialogs/send-to-server-dialog/send-to-server-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RunScriptsDirective } from './commons/run-scripts.directive';
     GeneralComponent,
     RunScriptsDirective,
     PreviewSuccessDialogComponent,
+    SendToServerDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import html2canvas from 'html2canvas';
 import { map, Observable } from 'rxjs';
-import { PreviewSuccessDialogComponent } from '../configuration/preview-success-dialog/preview-success-dialog.component';
+import { PreviewSuccessDialogComponent } from '../dialogs/preview-success-dialog/preview-success-dialog.component';
 import { Config, DataObj, FileResponse, Generation, GenerationEntity } from './models';
 
 @Injectable({
@@ -29,7 +30,12 @@ export class ApiService {
     return this.http.post(URL, {});
   }
 
-  private getFilRes(what : string, id : string){
+  public sendToServer(id : string, config : any) {
+    const URL = `${this.baseUrl}/sendToServer?id=${id}`
+    return this.http.post(URL, config);
+  }
+
+  public getFilRes(what : string, id : string){
     const URL = `${this.baseUrl}/download/${what}?id=${id}`
     return this.http.post(URL, {}, {responseType: 'blob', observe: 'response'}).pipe(map(res => {
       return new FileResponse({
@@ -39,18 +45,15 @@ export class ApiService {
     }));
   }
 
-  public download(what : string, id : string){
-    this.getFilRes(what, id).subscribe((res : any) => {
-      let url = window.URL.createObjectURL(res.blob);
-      let a = document.createElement('a');
-      document.body.appendChild(a);
-      a.setAttribute('style', 'display: none');
-      a.href = url;
-      a.download = res.filename;
-      a.click();
-      window.URL.revokeObjectURL(url);
-      a.remove();
-    })
+  downloadFile(filename : string, url : string){
+    let a = document.createElement('a');
+    document.body.appendChild(a);
+    a.setAttribute('style', 'display: none');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
   }
 
 

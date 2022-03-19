@@ -1,0 +1,60 @@
+<form class="w-full h-full" [formGroup]="form">
+    <div class="flex flex-col flex-wrap gap-y-1">
+        <h5 class="mb-4">Sever Properties</h5>
+        <div class="flex flex-row gap-x-3">
+            <mat-form-field appearance="outline" class="basis-4/5">
+                <mat-label>Server URL</mat-label>
+                <input matInput formControlName="url">
+            </mat-form-field>
+            <mat-error class="error" *ngIf="this.form.get('url')?.errors?.['required']">Field Required</mat-error>
+            <mat-form-field appearance="outline" class="basis-1/5">
+                <mat-label>Port</mat-label>
+                <input matInput formControlName="port">
+                <mat-error class="error" *ngIf="this.form.get('port')?.errors?.['required']">Field Required</mat-error>
+                <mat-error class="error" *ngIf="this.form.get('port')?.errors?.['pattern']">Field Not Valid</mat-error>
+            </mat-form-field>
+        </div>
+        
+        <mat-form-field appearance="outline" class="basis-1/5">
+            <mat-label>Protocol</mat-label>
+            <mat-select formControlName="protocol">
+                <mat-option [value]="'ssh'">SSH</mat-option>
+            </mat-select>
+            <mat-error class="error" *ngIf="this.form.get('protocol')?.errors?.['required']">Field Required</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="basis-1/5">
+            <mat-label>Abs. Path</mat-label>
+            <input matInput formControlName="absPath">
+            <mat-error class="error" *ngIf="this.form.get('absPath')?.errors?.['required']">Field Required</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="basis-1/5">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+            <mat-error class="error" *ngIf="this.form.get('username')?.errors?.['required']">Field Required</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="basis-1/5">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            <mat-error class="error" *ngIf="this.form.get('password')?.errors?.['required']">Field Required</mat-error>
+        </mat-form-field>
+
+        <div class="flex gap-x-2 mb-6">
+            <button mat-raised-button color="accent" (click)="saveConfig()" [disabled]="this.form?.invalid">SAVE CONFIG</button>
+            <button mat-raised-button (click)="uploaderConfig.click()" color="primary">
+                <input hidden type="file" #uploaderConfig (change)="loadConfig($event)" [multiple]="false" accept="application/json"/>
+                LOAD CONFIG
+              </button>
+        </div>
+
+        <div class="flex justify-between">
+            <button mat-raised-button color="warn" (click)="close()">CLOSE</button>
+            <button mat-raised-button color="primary" (click)="sendToServer()" [disabled]="this.form?.invalid">SEND</button>
+        </div>
+    </div>
+</form>

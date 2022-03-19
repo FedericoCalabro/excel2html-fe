@@ -3,7 +3,7 @@ import { ApiService } from 'src/app/commons/api.service';
 import { DataObj, Config, Generation, GenerationEntity, CardHeaderColorCriteria } from 'src/app/commons/models';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
-import { PreviewSuccessDialogComponent } from '../preview-success-dialog/preview-success-dialog.component';
+import { PreviewSuccessDialogComponent } from '../../dialogs/preview-success-dialog/preview-success-dialog.component';
 import { TOOLTIP_DEFINITIONS } from 'src/app/commons/constants';
 
 @Component({

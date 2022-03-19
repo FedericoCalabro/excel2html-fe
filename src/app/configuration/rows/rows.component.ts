@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/commons/api.service';
 import { DataObj, Config, RowCriteria, AggregationRow, SortingColumn, Generation, GenerationEntity } from 'src/app/commons/models';
-import { PreviewSuccessDialogComponent } from '../preview-success-dialog/preview-success-dialog.component';
+import { PreviewSuccessDialogComponent } from '../../dialogs/preview-success-dialog/preview-success-dialog.component';
 import {TOOLTIP_DEFINITIONS} from 'src/app/commons/constants'
 @Component({
   selector: 'app-rows',
