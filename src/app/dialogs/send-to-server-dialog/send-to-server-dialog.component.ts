@@ -64,7 +64,7 @@ export class SendToServerDialogComponent implements OnInit {
 
   sendToServer(){
     this.api.sendToServer(this.data.id, this.form.value).subscribe(res => {
-      this.snackbar.open("File inviato correttamente", "OK").afterDismissed().subscribe(() => {
+      this.snackbar.open("File inviato al server indicato", "OK").afterDismissed().subscribe(() => {
         this.dialogRef.close()
       })
     })
