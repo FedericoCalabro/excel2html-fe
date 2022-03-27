@@ -44,6 +44,7 @@ export class PlotConfig {
     targetCol? : string;
     colors : string[] = ['#ff0000'];
     styles: string[] = ['circle']
+    zoomable: boolean = false
 
     constructor(partial : Partial<Config>){
         Object.assign(this, partial);

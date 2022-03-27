@@ -199,6 +199,9 @@
                         <mat-option value="SCATTER">Scatter</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <div class="relative bottom-5">
+                    <mat-slide-toggle [(ngModel)]="this.config.plotConfig.zoomable">Should the plot be zoomable/movable?</mat-slide-toggle>
+                </div>
             </div>
             <div class="flex flex-col flex-wrap gap-y-2">
                 <h1 class="font-bold text-lg">{{this.config.plotConfig.type}} SETTINGS</h1>
