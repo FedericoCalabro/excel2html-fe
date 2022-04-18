@@ -1,9 +1,9 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import html2canvas from 'html2canvas';
 import { ApiService } from '../commons/api.service';
-import { Config, FileResponse, GenerationEntity, HtmlObj } from '../commons/models';
+import { Config, GenerationEntity } from '../commons/models';
 import { SendToServerDialogComponent } from '../dialogs/send-to-server-dialog/send-to-server-dialog.component';
 
 @Component({
