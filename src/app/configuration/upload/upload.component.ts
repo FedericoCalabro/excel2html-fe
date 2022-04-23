@@ -50,6 +50,8 @@ export class UploadComponent implements OnInit {
     this.dataObjChange.emit(this.dataObj);
     this.configChange.emit(this.config);
     this.onFileUploaded.emit(true);
+
+    return;
   }
 
   onConfigSelect(event: any) {
