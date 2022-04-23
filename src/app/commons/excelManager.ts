@@ -9,7 +9,6 @@ export class ExcelManager {
   }
 
     public static checkRowsLength(data : any[]){
-      console.log(data)
       return data.length >= 1;
     }
 

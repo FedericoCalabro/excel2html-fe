@@ -34,10 +34,10 @@ export class UploadComponent implements OnInit {
   onUpload(data: any[]) {
 
     let c1 = ExcelManager.checkRowsLength(data);
-    if (!c1) return console.log("error")
+    if (!c1) return this.snackbar.open("Excel file must at least have 1 row", "OK")
 
     let c2 = ExcelManager.checkSameColName(data);
-    if (!c2) return console.log("error");
+    if (!c2) return this.snackbar.open("Excel file cannot have more than 1 column with the same name", "OK")
 
     let columns: string[] = [...ExcelManager.getColumns(data)];
 
@@ -65,11 +65,11 @@ export class UploadComponent implements OnInit {
           subscriber.complete();
         }
       });
-
       obs.subscribe((config) => {
         this.onConfigUploaded.emit(config);
       });
-
     }
   }
+
+  
 }

@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import html2canvas from 'html2canvas';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { PreviewSuccessDialogComponent } from '../dialogs/preview-success-dialog/preview-success-dialog.component';
 import { Config, DataObj, FileResponse, Generation, GenerationEntity } from './models';
 

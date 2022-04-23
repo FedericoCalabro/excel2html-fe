@@ -25,8 +25,7 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  tabChange(event : any){
-  }
+  tabChange(event : any){}
 
   reset(view? : "TABLE" | "CARD" | "PIVOT"){
     this.columnsCP.mergedColumns = [];
@@ -42,13 +41,8 @@ export class ConfigurationComponent implements OnInit {
   }
 
   updateConfig(config : Config) : any{
-    console.log(this.config)
-
-    console.log("data cols =" + this.dataObj?.columns)
-
-    console.log(config.columns)
-    let copy = [...config.columns].filter((col) => !config.mergedColumns?.map(merged => merged.nameDefinition).includes(col))
-    console.log(copy)
+    let copy = [...config.columns].filter((col) => 
+      !config.mergedColumns?.map(merged => merged.nameDefinition).includes(col))
     for (let i = 0; i < copy.length; i++) {
       const col = copy[i];
       if(!this.dataObj?.columns.includes(col)){
@@ -58,7 +52,6 @@ export class ConfigurationComponent implements OnInit {
 
     this.config = new Config({...config})
     this.columnsCP.mergedColumns = config.mergedColumns || [];
-    console.log(this.config)
     this.snackBar.open("Configuration Loaded successfully", "OK")
   }
 

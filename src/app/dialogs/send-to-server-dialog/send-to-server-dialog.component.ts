@@ -34,7 +34,6 @@ export class SendToServerDialogComponent implements OnInit {
 
   saveConfig(){
     let serverProps = this.form.value;
-    console.log(serverProps)
     this.saveText(JSON.stringify(serverProps), "serverProps.json")
   }
 
