@@ -19,10 +19,7 @@ export class ApiService {
     private snackbar : MatSnackBar
     ) { }
 
-  public generate(generation : Generation) {
-    const URL = `${this.baseUrl}/generate`
-    return this.http.post(URL, generation);
-  }
+
 
   public get(id : string) {
     const URL = `${this.baseUrl}/get?id=${id}`
@@ -65,6 +62,11 @@ export class ApiService {
           })
       })
     }
+  }  
+  
+  public generate(generation : Generation) {
+    const URL = `${this.baseUrl}/generate`
+    return this.http.post(URL, generation);
   }
 
   private checkAllStuffCompiled(dataObj : DataObj, config : Config) : boolean {

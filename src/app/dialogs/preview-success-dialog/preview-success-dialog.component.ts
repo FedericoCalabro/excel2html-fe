@@ -3,6 +3,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-preview-success-dialog',
@@ -27,7 +28,8 @@ export class PreviewSuccessDialogComponent implements OnInit {
   }
   
   copyToClipboard(){
-    this.clipboard.copy(this.data.id);
+    const url = window.location.href.split("/home")[0]+`/generation?id=${this.data.id}`
+    this.clipboard.copy(url);
     this.tooltip.disabled = false;
     this.tooltip.show();
   }

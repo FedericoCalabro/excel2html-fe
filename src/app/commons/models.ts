@@ -16,7 +16,7 @@ export class GenerationEntity {
 
 export class Config {
 
-    view : "TABLE" | "CARD" | "PIVOT" | "PLOT" = "PLOT";
+    view : "TABLE" | "CARD" | "PIVOT" | "PLOT" = "CARD";
     addRowCounter : boolean = false;
     mergedColumns? : MergedColumns[];
     aggregationRows : AggregationRow[] = [];
